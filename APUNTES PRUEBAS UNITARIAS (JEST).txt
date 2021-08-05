@@ -1,0 +1,41 @@
+La siguiente función devuelve true si el string de entrada dado está en mayúscula, en caso contrario devuelve false:
+
+function isUpperCase(sentence){
+     return (sentence == sentence.toUpperCase());
+}
+
+La única manera de asegurarte de que tu función isUpperCase funciona es probar todas las entradas posibles:
+
+¿Qué ocurre si le pasas una palabra en mayúsculas?
+¿Qué ocurre si le pasas una palabra en minúsculas?
+¿Qué ocurre si le pasas una palabra mixta (mayúscula y minúscula)?
+¿Qué ocurre si le pasas un número en lugar de un string?
+¿Qué ocurre si le pasas un booleano en lugar de un string?
+
+//PRUEBAS
+
+// Primera prueba posible
+test('The string HELLO should return true', () => {
+     const result = isUpperCase('HELLO');
+     expect(result).toBe(true);
+})
+// Segunda prueba posible
+test('Testing for Hello (mixed)', () => {
+     const result = isUpperCase('Hello');
+     expect(result).toBe(false);
+})
+// Tercera prueba posible
+test('Testing for hello (lower)', () => {
+     const result = isUpperCase('Hello');
+     expect(result).toBe(false);
+})
+// Cuarta prueba posible
+test('Boolean shoud return false', () => {
+     const result = isUpperCase(true);
+     expect(result).toBe(false);
+})
+// Quinta prueba posible
+test('Number shoud return false', () => {
+     const result = isUpperCase(12341234);
+     expect(result).toBe(false);
+})

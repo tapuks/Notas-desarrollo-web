@@ -1,0 +1,52 @@
+//GIT
+
+cd	 ../ 	dir   ls
+
+
+ruta de tus ficheros y haces:  git init
+
+git status : ves los archivos subidos y que te quedan por subir
+
+git add app.html : añades un archivo para subir     (git add .   añades todos)
+
+git commit -m "version 1 o la descripcion que quieras" : subes el archivo
+
+en editor vi apretar  escape y escribir :wq (para salir)
+
+git log : ves los commit que has hecho
+
+git branch : ver las ramas que tienes
+
+git branch nuevaRama : creas una rama
+
+git checkout nueva : cambias a la rama nueva
+
+$ git remote -v : para mirar el enlace al repositiorio que tienes puesto
+git remote remove nombre-variable :  Eliminar el enlace que tiene tu worskpace hacia tu repo
+
+//GITHUB
+
+creas repositorio nuevo en la web
+copias en git el comando que se te crea: $ git remote add origin https://github.com/tapuks/nuevo.git 
+git push -u origin master  : haces el push para subir el archivo
+git clone en la consola de git + la url que copiamos del archivo que queremos descargar en github :para descargar 
+
+Para enlazar el proyecto con el repo de github: git remote set-url origin https://github.com/ta......
+
+Vencillon123
+
+git checkout develop
+git pull
+git checkout <mi_rama>
+git merge develop
+git push
+
+actualizar mi rama con la de main
+git pull --rebase origin main
+
+resetear base de datos
+rm -R -f ./migrations &&pipenv run init &&psql -U gitpod -c 'DROP DATABASE example;' || true &&psql -U gitpod -c 'CREATE DATABASE example;' &&psql -U gitpod -c 'CREATE EXTENSION unaccent;' -d example &&pipenv run migrate &&pipenv run upgrade
+
+
+actualiza rama con lo de main
+git pull origin main

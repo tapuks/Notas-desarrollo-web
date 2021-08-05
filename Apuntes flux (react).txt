@@ -1,0 +1,45 @@
+en flux.js
+
+const getState = ({ getStore, getActions, setStore }) => {
+	return {
+
+		//EN STORE SE DECLARAN LAS VARIABLES
+		store: {
+			people: [],
+			plantets: [],
+			favorite: [],
+			numbers: 2,
+			apellidos: { david: berdiell }
+		},
+
+		//EN ACTIONS SE DECLARAN LAS FUNCIONES 
+		actions: {
+			
+
+			loadSomeData: () => {
+				console.log("hola");
+			},
+
+			addFavorite: item => {
+			//PARA ACCEDER A UNA VARIABLE DE STORE HAY QUE PONER const store = getStore();
+				const store = getStore();
+				const validate = store.favorite.includes(item);
+
+				if (store.favorite == [] || !validate) {
+					setStore({ favorite: [...store.favorite, item] });
+				}
+				// Para llamar otra funcion de actions: getActions().loadSomeData()
+			}
+		}
+	}
+ export default getState;
+
+en otro documento donde vayas a usar funciones del documento flux se necesita:
+
+import React, { useState, useContext } from "react";   IMPORTAR USECONTEXT
+import PropTypes from "prop-types";
+import { Context } from "../store/appContext";		IMPORTAR CONTEXT
+
+const Card = props => {
+	const { store, actions } = useContext(Context); // DECLARAR ESTE USECONTEXT
+

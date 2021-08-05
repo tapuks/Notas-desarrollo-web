@@ -1,0 +1,16 @@
+Al igual que hicimos con CSS, podemos seleccionar cualquier elemento en el documento. Hay 4 métodos que nos permiten buscar lo que queramos:
+
+document.querySelector("css-element-selector")
+Devuelve una instancia de el primer elemento encontrado que se ajusta al selector de CSS que especificó
+
+document.getElementById("elementId")
+Devuelve una instancia del elemento con el id = "elementId" en el documento HTML.
+
+document.getElementsByClassName("exampleClass")
+Devuelve un array de todos los elementos con la clase = "exampleClass" en su propiedad de etiqueta HTML.
+
+document.getElementsByTagName("p")
+Devuelve un array con todas las instancias que representan cada elemento de párrafo en el documento HTML.
+
+document.getElementsByName("name_value")
+Devuelve un array con todos los elementos que tienen nombre = "nombre_valor" en su propiedad de nombre de su etiqueta HTML en el documento HTML.

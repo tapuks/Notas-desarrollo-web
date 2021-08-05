@@ -1,0 +1,9 @@
+modificar columna tabla base de datos
+
+en la consola escribimos:
+mysql
+use nombre_bd;
+show tables;
+describe nombre_tabla
+drop database nombre_bd;
+exit

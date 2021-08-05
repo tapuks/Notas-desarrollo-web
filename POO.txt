@@ -1,0 +1,31 @@
+Final: Se usa para crear una constante en una variable, se escribe en mayuscula el nombre. Tambien se usa  para decir que es el final de una clase y no puede ser heredada.
+Final int NUMERO_MAXIMO = 99;
+
+Herencia: una clase hereda de otra con sus metodos usanso extends en el nombre de la clase. En el costructor tienes que llamar al de la clase padre con super()
+
+Static: una clase puede tener metodos estaticos, eso significa que para usarlo, no hay que instanciar la clase.
+Hay que poner el nombre de la clase.metodo  (Tractor.corre)
+
+Abstract: una clase puede ser abstracta, cuando por lo menos uno de sus metodos se crea como abstracto, con la palabra abstract delante de la clase y delante del metodo. Se crea en la clase padre para que asi las clases hijas esten obligadas a usar ese metodo abstracto.
+Se crea el metodo sin cuerpo en la clase padre y en las hijas lo sobrescribes. 
+abstract public class Vehiculo{
+	abstract void PrecioRepostar();
+}
+public class moto extends Vehiculo{
+	Public void PrecioRepostar(){
+		precioLleno=capacidad*0.9
+	}
+}
+
+Interfaz: Una interfaz es como una clase abstracta, sirve para obligar que se use un metodos o metodos. La diferencia con la clase abstracta es que, la interfaz no tiene que heredar de una clase padre como la clase abstracta.
+En la clase que la vayas a utilizar tienes que poner implements.
+public interface Coloreable {
+    public String colorear(String color);
+}
+Public class moto implements Coloreable{
+	public String colorear(String color){
+		return "Pintado de + color"
+	}
+}
+
+Un metodo es una funcion creada en un objeto, en cambio si la creamos nosotros (fuera del objeto)se llama funcion.

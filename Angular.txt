@@ -1,0 +1,4 @@
+ng serve --open
+crtrl+c cancelar localhost
+
+//crear componente 	ng g c probando
