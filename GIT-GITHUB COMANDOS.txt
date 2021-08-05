@@ -27,8 +27,8 @@ git remote remove nombre-variable :  Eliminar el enlace que tiene tu worskpace h
 //GITHUB
 
 creas repositorio nuevo en la web
-copias en git el comando que se te crea: $ git remote add origin https://github.com/tapuks/nuevo.git 
-git push -u origin master  : haces el push para subir el archivo
+copias en git el comando que se te crea: $ git remote add origin https://github.com/tapuks/nuevo.git      git remote add David ...
+git push -u origin master  : haces el push para subir el archivo		git push -u David
 git clone en la consola de git + la url que copiamos del archivo que queremos descargar en github :para descargar 
 
 Para enlazar el proyecto con el repo de github: git remote set-url origin https://github.com/ta......
