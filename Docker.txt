@@ -1,0 +1,54 @@
+docker images -> para ver las imagenes descargadas en el equipo
+docker pull pokemon -> para descargar una imagen
+docker run pokemon -> descarga y corre la imagen
+docker run -e POSTGRES_PASSWORD=password pokemon -> cuando corres una imagen te pide que pongas un password... se pone asi
+docker ps -> muestra los contenedores que estan corriendo, muestra su id, nombre...
+docker ps -a -> muestra los contenedores que corrieron hace un tiempo
+docker logs f2a09f7177bd (el numero es el id del contenedor) -> corre el contenedor
+docker logs -f b2a09f7177bd (el numero es el id del contenedor) -> corre el contenedor y se queda en espera
+docker stop f3bkerfe4tg -> detiene contenedor 
+docker rmi 2fjfsfdsff ->borra una imagen
+
+para desarrollar una aplicacion usando un contenedor de docker:
+vim Dockerfile -> entra en la consola de docker
+aqui le tienes de poner:
+FROM node:16.13.0-alpine3.14   (vas a hub docker en google y buscar el contenedor dependiendo el lenguasje que uses. Mejor el alpine ya que ocupa poco. y Copias en codigo 16)
+
+WORKDIR /app -> se crea un directiorio de trabajo en node
+COPY . .   -> copia el proyecto dentro del directorio /app
+RUN yarn install --production   -> compila todo lo que tenemos en el codigo de node
+CMD ["node", "/app/src/index.js"]  -> corre node y pasa por argumentos ese binario
+:x  -> sales de la consona de dockerull
+despues
+docker build -t mi-contenedor_img .   (puedes poner el nombre que quieras)  -> descarga nuestra imagen de la aplicacion  y le pone un nombre para no tenerlo que buscar por id
+docker run -it -p 80:80 enginx_img   -> corres tu contenedor en el puerto
+para react->  docker run -it -p 80:3000 miimagen_react
+
+docker run -it -p 3000:3000 -v \Users\DBERDIELL\Desktop\irrifront\Proyecto-Irta\app\src irrifront
+
+comando¿se supone que asi se guardan los cambios que haga en el repositortio? ->  docker run -d -v C:\Users\DBERDIELL\Desktop\irrifront\Proyecto-Irta\app\etc:\etc\todos -p 3000:3000 -v C:\Users\DBERDIELL\Desktop\irrifront\Proyecto-Irta\app\src:\app\src irrifront
+
+
+
+
+# pull official base image
+FROM node:13.12.0-alpine
+
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+
+# add app
+COPY . ./
+
+# start app
+CMD ["npm", "start"]
+

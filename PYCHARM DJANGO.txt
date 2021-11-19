@@ -1,0 +1,44 @@
+pip install django -> INSTALAS DJANGO
+
+django-admin startproject sistema_administracion_personas -> nuevo proyecto python
+
+python .\manage.py startapp webapp  -> nueva app
+
+python manage.py startapp (nombre del starapp)
+
+registrar la nueva app creada en settings.py ->  
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.staticfiles',
+	...............,
+    'web_app',
+]
+
+python manage.py showmigrations -> ves migraciones pendientes
+
+python manage.py makemigrations -> crea el archivo con la migracion pendiente que vamos a ejecutar
+
+python manage.py migrate -> haces las migraciones
+
+python manage.py sqlmigrate persona 0001 -> ves codigo sql creado al crear una tabla
+
+python manage.py createsuperuser -> creas super usuario para el panel de administracion
+
+python manage.py runserver LANZAS SERVIDOR
+
+
+PARA AÑADIR UNA TABLA AL PANEL DE ADMINISTRADOR:
+en admin.py registrar tu modelo:
+admin.site.register(Pedidos)
+
+PARA FILTRAR LOS ELEMENTTOS DE UNA TABLA POR ID POR EJEMPLO
+Pedidos.objects.get(id=6)
+
+PARA FILTRAR LOS ELEMENTOS QUE QUIERES DE UNA TABLA:
+Pedidos.filter(nombre='pedido1', seccion='comida')
+PARA METER UN ELEMENTO EN UNA TABLA DEL MODELO:
+pedido=Pedidos.objects.create(nombre='pedido2, seccion="deporte", precio="5"
+pedido.save()
+
+
+
