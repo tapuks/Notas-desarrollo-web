@@ -1,0 +1,2 @@
+extension -> bracket pair colorizer -> da color a los corchetes 
+better comments -> da color a los comentarios

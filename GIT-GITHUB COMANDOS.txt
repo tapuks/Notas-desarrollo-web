@@ -13,7 +13,9 @@ git commit -m "version 1 o la descripcion que quieras" : subes el archivo
 
 en editor vi apretar  escape y escribir :wq (para salir)
 
-git log : ves los commit que has hecho
+git log --oneline : ves los commit que has hecho
+
+git reset --hard 01cdac6 vueleves al commit que quieres, ¡ Cuidado porque se borran todos los que tengas mas adelante !
 
 git branch : ver las ramas que tienes
 

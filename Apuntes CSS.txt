@@ -1,0 +1,80 @@
+colorhunt.com  te da paleta de colores con colores que quedan bien entre ellos
+
+
+si es un contenedor no cabe el texto se le pone overflow: hidden para que no se salga.
+Si le pones overflow: auto saldra barra de scroll si no cabe el texto
+
+
+CENTRADO
+para centrar un elemento de bloque:
+margin-left: auto
+margin-rigth: auto
+Para centrar el contenido de un div --->  .div {text-align: center} (solo en elementos de bloque)
+Si tenemos un contenedor y dentro una imagen y queremos centrarla, con tex-align:center funcionaria, pero solo si la iumagen no tiene un display block
+porque si lo tiene , ocuparia todo el contenido del contenedor y entonces no se centraria
+Para centrar facilmente VERTICALMENTE un elemento de una sola linea, si al contenedor le damos un alto->  height:200px por ejemplo, al contenido le damos un line-height del mismo tamaño(200) entonces se pondra en medio
+
+LOS ELEMENTOS INLINE NO SE LE PUEDEN DAR UN WIDTH NI PADDING
+
+OUTLINE es para dar borde pero sin mover el contenedor
+BOX-SHADOW es para dar sombras y hacer efectos...
+
+POSITION
+Los elementos se mueven desde su esquina superior izquierda.
+Relative -> el elemento mantendra las  medidas y su espadcio reservado(si tenemos un cuadrado (div) y lo movemos, para el navegador el espacio ocupado que habia donde estaba el cuadrado antes de moverlo sigue estando ocupado). Top manda sobre buttom y left sobre rigth
+
+Absolute -> el elemento pierde sus medidas y su espacio reservado.( si un div ocupa el 100 % por defecto al ponerle posiiton absolute pierde sus medidads y solo ocupara lo que ocupa su contneido, en cambio si le damos width y heigh si que ocupa losn valore sque le damos)
+si al principio tenemos un div y le damos top:0 se pondra abajo de todo porque coje como referencia su contenedor padre que es el body. los elementos que hay debajo subiran porque pierde su espacio reservado.
+Si un div tiene contendor padre y y le ponemos .padre{ position:relative} el div se posicionara sobre el padre y se movera sobre el. Si le damos rigth 0 y bottom 0 se pondra sobre la esquina inferior pero del contenedor. (video 37 css pildoras)
+
+ORDENAR PROPIEDADES EN LA HOJA DE ESTILOS.
+
+body {
+	//POSITION
+	position: relative:
+	top:0
+	left:0
+	//BOX MODEL
+	display: block
+	width:300px
+	height: 600px
+	margin:0
+	padding
+	overflow: hidden
+	//TEXT
+	font-size: 16px
+	text-align
+	//VISUAL
+	color: blue
+	border: 2px solid red
+	border-radius
+	//OTROS
+	opacity:1
+	animation..
+}
+
+TAMAÑOS
+Para tamaños de fuente (font-size)usar REM 
+1rem = 16px que es el tamaño de la letra que traen los navegadores por defecto.
+2rem = 24px
+3rem = 36px
+Para %  si queremos que ocupe algo el 100% puedes poner width:auto asi si tiene un margen no se sale del contenedor
+Para dar el height total de la pantalla poner en el body{ height: 100vh}
+Cuando quieres poner un footer abajo de todo pero el contenido no del bod7y no ocupa toda la pagina, el footer se pone mas arriba, para solucionarlo, pone en el body {min-hieght:100vh}
+
+Para importar una fuente en react
+//importar en el css
+@import "~bootstrap/scss/bootstrap.scss";
+//descargar la fuente y meterla en la carpeta fonts
+@font-face {
+    font-family: Halloween;
+    src: url(../fonts/Halloween_Morning.ttf);
+}
+//Uso de fuente
+.time-game {
+    font-family: Halloween;
+}
+
+Para que el css quite sus margenes por defecto puedes importar un archivo que se llama normalize.css, descargandolo en google e importandolo en el html encima de la importacion de los estilos. En react se importa de otra manera.
+En inspeccionar pagina, al lado de styles, esta computed, alli puedes ver las propiedades css de cada elemento html y si pinchas en cada enlace te lleva a la hoja de estilos exactamente donde esta esa propiedad.
+Para dar estilos a un elemento html que esta al mismo nivel que otro se hace: .parrafo1 + h2 {color:red}   de esta forma damos estilo al h2 que esta al mismo nivel que parrafo1

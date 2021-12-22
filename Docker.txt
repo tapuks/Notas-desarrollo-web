@@ -10,7 +10,7 @@ docker stop f3bkerfe4tg -> detiene contenedor
 docker rmi 2fjfsfdsff ->borra una imagen
 
 para desarrollar una aplicacion usando un contenedor de docker:
-vim Dockerfile -> entra en la consola de docker
+vim Dockerfile -> entra en la consola de docker. en window creas un archivo Dockerfile en la raiz del proyecto y pones lo siguiente:
 aqui le tienes de poner:
 FROM node:16.13.0-alpine3.14   (vas a hub docker en google y buscar el contenedor dependiendo el lenguasje que uses. Mejor el alpine ya que ocupa poco. y Copias en codigo 16)
 
@@ -22,7 +22,8 @@ CMD ["node", "/app/src/index.js"]  -> corre node y pasa por argumentos ese binar
 despues
 docker build -t mi-contenedor_img .   (puedes poner el nombre que quieras)  -> descarga nuestra imagen de la aplicacion  y le pone un nombre para no tenerlo que buscar por id
 docker run -it -p 80:80 enginx_img   -> corres tu contenedor en el puerto
-para react->  docker run -it -p 80:3000 miimagen_react
+para react->  docker r-tun -it -p 80:3000 miimagen_react
+en el navregador poner localhost
 
 docker run -it -p 3000:3000 -v \Users\DBERDIELL\Desktop\irrifront\Proyecto-Irta\app\src irrifront
 
@@ -51,4 +52,9 @@ COPY . ./
 
 # start app
 CMD ["npm", "start"]
+
+GUARDAR LA IMAGEN EN UN ARCHIVO TAR
+docker save -o irrifront.tar irrifron:v1
+IMPORTAR EL ARCHIVO .TAR PARA QUE SE CREE UNA IMAGEN
+docker import irrifront.tar
 

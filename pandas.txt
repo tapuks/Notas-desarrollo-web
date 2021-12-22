@@ -1,0 +1,31 @@
+import pandas as pd
+
+df = pd.DataFrame({'columna1': [None ,11,111], 'columna2': [2,22,222], 'columna3': [3,33,333], 'columna4': [4,44,444]})
+print(df)
+print(df.shape)   --> te dice cuantas filas, cuantas columnas
+//CARGAR CSV
+df = pd.read_csv('data/CCLT_100930_Mollerussa.csv', header=None)
+print(df) 
+print(df.head())  --> MUESTRA 5 PRIMERAS FILAS
+print(df.head(48))  --> MUESTRA EL NUMERO DE FILAS QUE LE PONGAMOS
+print(df.tail())  --> MUESTRA 5 ULTIMAS FILAS
+//DAMOS NOMBRE A LAS COLUMNAS
+nombres_columna = ['Registro','Via','X', 'Y', 'Valizas Acum.', 'Valiza', 'mm de via', 'Distancia al origen','???']
+df.columns = nombres_columna
+print(df.columns) --> Muestra el nombre de las columnas
+print(df.describe())  --> Nos da info de la tabla
+print(df['Registro'].value_counts())  --> Cuenta cuantos valores hay de cada
+print(df[['Registro', 'mm de via']])  --> seleccionamos las columnas que queremos
+print(df[:3])  --> Devuelve los 3 primeros casos
+print(df.iloc[[2,25], [1,6]])  --> le decimos que nos de las filas que le digamos y las columnas
+print(df[df['mm de via']<380]) --> filtrar menos que
+print(df[(df['mm de via']>180) & (df['mm de via']<680) ]) filtrar mas de una cosa
+print(df.isna().sum()) --> cuenta los valores nulos
+df['Registro'][:2] = 55  --> Le decimos que en las dos primeras filas ponga el valor de 55
+print(df['mm de via'].mean()) --> Media de la columna
+print(df['mm de via'].apply(lambda x: -x)) Funcion lambda en toda una columna
+print(df.groupby('mm de via')['Valiza'].mean())--> agrupa por cada una de los mm de via, nos devuelve la media de la valiza
+df_group =df.groupby('mm de via')['Valiza'].mean() -->guardamos la media en una variable para ponerle un nombre
+df_group.name = 'media de valizas'   --> ponemos nombre
+df_join = df.join(df_group, on=['mm de via'], how='inner')  --> Juntamos el df original con la media
+print(df_join.head())

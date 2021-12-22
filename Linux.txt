@@ -1,0 +1,55 @@
+pwd -> ves la ruta al doirectorio que estas
+el directorio raiz es /    -> cd /
+El diectorio principal es home, es donde tenemos todo
+Para limpiar pconsola clear
+sudo su   --> entro al usuario root
+exit --> salgo del usuario root
+ls -l  --> Listado largo de lo que hay
+cd .  --> directorio actual
+cd .. --> directorio anterior
+history --> muestra el historial de comandos
+whoami --> dice el usuario que eres
+id   --> ves tu id, tu grupo de usuario...
+su <nombre_usuario>  --> cambias de usuario
+echo hola > echo.txt --> sobrescribimos el fichero echo.txt con hola dentro
+echo holaaaa >> echo.txt --> añadimos holaaa a lo que ya tiene el fichero echo.txt
+cat echo.txt --> leemo el fichero
+~ --> se escribe con la teclas (altGr 4)
+Las rutas aboslutas empiezan en el directorio raiz(/)  --> cat  /home/dberdiell/fichero.txt
+Las rutas relativas empiezas desde el diredtorio que te encuentras-->   cat dberdiell/fichero.txt 
+mkdir --> creas carpeta (directorio)
+rmdir carpeta1 --> borra directorio si esta vacio
+rm carpeta1 -t --> borra directorio aunque no este vacio
+touch fichero.txt  --> creas fichero
+nano ficero2.txt --> Se crea fichero y se abre para editarlo. ctrl+o para guardar, intro, ctrl+x para salir
+rm fichero.txt --> borras fichero
+cat fichero.txt --> lees el fichero
+mv fichero.txt ficherooo.txt --> renombras el fichero
+mv fichero.txt carpeta1 --> Movemos el fichero dentro del directorio
+cp fichero.txt carpeta1  --> Copia fichero dentro de la carpeta
+find . -name ejemplo.txt  --> Busca el fichero y te dice la ruta
+find . -iname ejemplo.txt  --> Busca el fichero tanto si empieza en mayusculas o no y te dice la ruta
+find . -name "*.txt" --> Buca cualquier cosa que sea .txt
+find . -type d -name Directorio1 --> Busca un directorio
+zip fichero.zip fichero.txt --> comprimimos archivo y le llamamos archivo.zip
+unzip archivo.zip --> descomprimimos archivo zip
+tar -xvf archivo.tar --> descomprimimos archivo .tar
+
+
+
+El usuario root es el superadministrador, es el que tiene accesoa  todo
+
+
+
+
+
+
+
+
+
+
+
+
+
+Para ir al explorador de archivos de superusuario, escribir en la terminal:
+sudo nautilus-otras ubicaciones-equipo-home-dberdiell-escritorio...
