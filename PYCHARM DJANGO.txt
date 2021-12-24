@@ -28,7 +28,7 @@ python manage.py runserver LANZAS SERVIDOR
 
 {% csrf_token %} se usa para que otra web no rellene los campos de tu formulario y se tenga que enviar desde tu web.
 
-
+PARA VER LAS OPCIONES QUE HAY EN UN MODELO POR EJEMPLO created_at = models.DateTimeField(CONTROL+ESPACIO) Y SE ABREN LAS OPCCIONES COMO AUTOCREATED=TRUE
 PARA AÑADIR UNA TABLA AL PANEL DE ADMINISTRADOR:
 en admin.py registrar tu modelo:
 admin.site.register(Pedidos)
@@ -42,7 +42,7 @@ PARA METER UN ELEMENTO EN UNA TABLA DEL MODELO:
 pedido=Pedidos.objects.create(nombre='pedido2, seccion="deporte", precio="5"
 pedido.save()
 
-models: 1 persona puede tener varios moviles, y ecada movil solo pertenece a una persona
+models:1:N->  1 persona puede tener varios moviles, y ecada movil solo pertenece a una persona
 
 class Persona
 class Movil -> foreign Key(persona)
@@ -51,66 +51,94 @@ class Movil -> foreign Key(persona)
 JUGADOR = Jugador.objects.get(equipo_id=id_equipo) ->GET DEVUELVE UN SOLO RESULTADOS
 plantilla = Plantilla.objects.filter(equipo_id=id_equipo) ->FILTER DEVUELVE TODOS LOS RESULTADOS
 
-Los decoradores son funciones que decoran otras funciones (añaden funcionalidades a otras funciones)
+-------DJANGO-------REST--------FRAMEWORK
 
-miLista = ["Maria", "Pepe", "Marta", "Antonio"]
-miLista.append("David")
-miLista.append(2)
-miLista.extend(["jazmin", "raquel"])
-miLista.remove("Marta")
-miLista.insert(3, "magi")
-print(miLista[:])
-miLista2=[4 , 5]
-miLista3= miLista+ miLista2
-print(miLista3)
+Lo instalas ->  pip install djangorestframework
+Lo guardas en settings---> INSTALLED_APPS = [...'rest_framework',]
+dentro de nuestra app se crea una carpeta llamada api y dentro de la carpeta un fichero __init__.py y otro views.py, otro permissions.py, router.py
+ININT.PY --> NADA
+VIEWS--> SE CREA LA CALSE POSTMODELVIEWSET
+PERMISSIONS --> CREAMOS UN PERMISO SI QUEREMOS
+ROUTER--> PONEMOS LO QUE HACE FALTA DE RUTA
+lo ponemos en urls.py
 
-miDiccionario = {1:'curtua', 'pais':'Belgica', 'posicion': 'potero', 'zamoras': {'temporadas':[2010,2012,2014,2022]}}
-print(miDiccionario.keys())
-print(miDiccionario.values())
-print(len(miDiccionario))
-print(miDiccionario)
+-----------------DRF-YASG------------------ (PARA CREAR UNA DOCUMENTACION DE LOS ENDPOINTS)
 
-salario = int(input('introdice tu salario'))
-print("tu salario es " + str(salario))
-if salario >1000 and salario<1200 or salario==1100:
-    print("el salario es bajo")
+instalamos paquete -->   pip install drf-yasg
+en settings --> INSTALLED_APPS = ['django.contrib.admin',........,'drf_yasg']
+en la terminal --> python .\manage.py collectstatic
+Te dice que hay que configurarlo en settings --> STATIC_ROOT setting to a filesystem path
+en settings abajo de todo, debajo de STATIC_URL-->  STATIC_ROOT = './static/'
+en la terminal --> python .\manage.py collectstatic
+se crea automaticamente una carpeta llamada static
+en urls se pega esto -> 
+# DRF-YASG
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Documentacion API blog",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+)
 
-for i in 'david_berdiell@hotmail.com' :
-    print(i)
-for i in range(5):
-    print(f"valor de la variable {i}")
-for i in range(5,12,2):
-    print(f"valor2 de la variable {i}")
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    .............
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+]
 
-email= 'david_berdiell@hotmail.com'
-for i in range(len(email)) :
-    if email[i] == '@':
-        print("email correcto")
-    else:
-        print("email falso")
+YA PUEDES IR A LA URL DOCS Y REDOCS
 
-for i in email:
-    if i =='l':
-        continue
-    print('letra '+ i)
+-----------CREAR OVERRIDE----------
+python .\manage.py startapp user
+creas el modelos:
+		class User(AbstractUser):
+    			pass
+Guardas en settings la aplicacion user
+Abajo de todo en settings -->  AUTH_USER_MODEL = 'user.User'  
+Hacemos el makemigrations
+Hacemos el migrate
+Si da error, borramos la base de datos.
+borramos las migraciones
+Hacemos el makemigrations
+Hacemos el migrate
+en user vamos a admin.py :
+			@admin.register(User)
+			class UserAdministrador(UserAdmin):
+    				pass
 
-def devuelve_ciudades(*ciudades):
-    for ciudad in ciudades:
-        yield ciudad
+Si quieres añadir mas cosas como redes sociales , se añaden en models y luego en admin.py
 
-ciudades = (devuelve_ciudades("madrid", "roma", "bogota"))
-for i in ciudades:
-    print(i)
-# -----------------------------
-def devuelve_peces(*peces):
-    for pez in peces:
-        yield from pez
+----------SIMPLE-JWT-------------(login)
 
-peces = (devuelve_peces("salmon", "trucha", "bacalao"))
+pip install djangorestframework-simplejwt
+
+pegas en settings:
+
+REST_FRAMEWORK = {
+    ...
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        ...
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+    ...
+}
 
 
-print(next(peces))
-print(next(peces))
+
+
+
+
+
+
+
+
+
 
 
 

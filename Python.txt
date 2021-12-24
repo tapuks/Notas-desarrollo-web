@@ -1,0 +1,63 @@
+
+------------PYTHON---------------
+
+Los decoradores son funciones que decoran otras funciones (añaden funcionalidades a otras funciones)
+
+miLista = ["Maria", "Pepe", "Marta", "Antonio"]
+miLista.append("David")
+miLista.append(2)
+miLista.extend(["jazmin", "raquel"])
+miLista.remove("Marta")
+miLista.insert(3, "magi")
+print(miLista[:])
+miLista2=[4 , 5]
+miLista3= miLista+ miLista2
+print(miLista3)
+
+miDiccionario = {1:'curtua', 'pais':'Belgica', 'posicion': 'potero', 'zamoras': {'temporadas':[2010,2012,2014,2022]}}
+print(miDiccionario.keys())
+print(miDiccionario.values())
+print(len(miDiccionario))
+print(miDiccionario)
+
+salario = int(input('introdice tu salario'))
+print("tu salario es " + str(salario))
+if salario >1000 and salario<1200 or salario==1100:
+    print("el salario es bajo")
+
+for i in 'david_berdiell@hotmail.com' :
+    print(i)
+for i in range(5):
+    print(f"valor de la variable {i}")
+for i in range(5,12,2):
+    print(f"valor2 de la variable {i}")
+
+email= 'david_berdiell@hotmail.com'
+for i in range(len(email)) :
+    if email[i] == '@':
+        print("email correcto")
+    else:
+        print("email falso")
+
+for i in email:
+    if i =='l':
+        continue
+    print('letra '+ i)
+
+def devuelve_ciudades(*ciudades):
+    for ciudad in ciudades:
+        yield ciudad
+
+ciudades = (devuelve_ciudades("madrid", "roma", "bogota"))
+for i in ciudades:
+    print(i)
+# -----------------------------
+def devuelve_peces(*peces):
+    for pez in peces:
+        yield from pez
+
+peces = (devuelve_peces("salmon", "trucha", "bacalao"))
+
+
+print(next(peces))
+print(next(peces))
