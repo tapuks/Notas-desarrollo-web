@@ -29,3 +29,10 @@ df_group =df.groupby('mm de via')['Valiza'].mean() -->guardamos la media en una 
 df_group.name = 'media de valizas'   --> ponemos nombre
 df_join = df.join(df_group, on=['mm de via'], how='inner')  --> Juntamos el df original con la media
 print(df_join.head())
+
+PARA ORDENAR COLUMNAS EN ARCHIVO LEIDO EN EXCEL:
+SELECCIONAMOS A
+DATOS
+TEXTO EN COLUMNA
+DELIMITADOS-SIGUIENTE
+COMA-SIGUIENTE-FINALIZAR

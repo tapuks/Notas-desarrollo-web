@@ -1,0 +1,43 @@
+
+USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA
+const arrayImagenes = 'https://www.youtube.com/watch?v=QBLbX', 'https://www.youtube.com/wat'
+ROW FINCTION
+return (
+	<div>
+	    arrayImagenes.map(imagen => <img src={imagen}/>)
+	</div>
+
+)
+DEVOLVIENDI MAS DE UN DATO
+return (
+	<div>
+	    arrayImagenes.map(imagen => 
+				return <> 
+					<img src={imagen}/>
+					<h1>imagen.title</h1>
+					</>
+				
+				)
+	</div>
+
+)
+return (
+	<div>
+	   {
+	    arrayImagenes.map(({title, url}) => 
+				return <> 
+					<img src={url}/>
+					<h1>title</h1>
+					</>
+				
+				)
+	    }
+	</div>
+
+)
+
+
+
+
+----------------------------
+rutas -> wouter (npm install wouter) o react router dom (el que usa 4geeks)
