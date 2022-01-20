@@ -110,6 +110,27 @@ const Buscar=()=> {
     },[])
 
     console.log(pokemon)
+---------------------------------
+HACER DOBLE DESTRUCTURING (nos envian un objeto con varios datos por props)
+
+export default Saludar=(props)=> {
+	const {data: {nombre, apellido, edad}}= props
+	console.log(apellido)
+}
+---------------------------------------
+USE ESTATE CON VALOR OBJETO (expres operator)
+
+const [coche, setCoche]=useState({'encendido':false, 'km':2000})
+
+<button onClick={()=> setCoche({...coche, 'encendido': !coche.encendido})}>
+
+-------------------------------LIBRERIAS
+MATERIAL UI
+MOMENTS JS
+TAILWIND CSS
+SASS
+
+
 
 
 
