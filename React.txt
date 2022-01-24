@@ -1,5 +1,5 @@
 
-USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA
+USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA. USA MAP PARA RECORRER LA LISTA DE OBJETOS Y FOR-IN PARA CAMBIAR DE NUMERO EN EL ARRAY 
 const arrayImagenes = 'https://www.youtube.com/watch?v=QBLbX', 'https://www.youtube.com/wat'
 ROW FINCTION
 return (
@@ -36,8 +36,120 @@ return (
 
 )
 
+return (
+        data?.map(movie=> (
+            <div>{movie.title}</div>
+        )
+        )
+    )
+
+    return (
+        data?.map((value, index) => {
+            return(
+            <div>{value.title}</div>
+            )
+        })
+
+
 
 
 
 ----------------------------
 rutas -> wouter (npm install wouter) o react router dom (el que usa 4geeks)
+
+-------------------------------------
+CONTEXT
+
+	CREAR CARPETA CONTEXT
+	CREAR DOCUMENTO PROVIDER.JS
+const PokemonProvider=({children})=> {
+	const [pokemon, setPokemon]=useState([])
+	const getPokemons=()=>FETCH A LA API POKEMON Y DUARDAMOS  EL RESULT.JSON EN setpokemon(result)
+
+
+    return (
+        <PokemonContext.Provider value={{getPokemons, pokemon}}>
+            {children}
+        </PokemonContext.Provider>
+    )
+}
+
+export default PokemonProvider
+
+	CREAR DOCUMENTO POKEMONCONTEXT
+
+import { createContext } from "react";
+
+const PokemonContext= createContext("pokemons")
+export default PokemonContext
+
+EN APP.JS ENVILVEMOS CON LAS ETIQUETAS POKEMONPROVIDER LAS RUTAS QUE QUERAMOS QUE SEAN ACCESIBLES
+
+import PokemonProvider from './context/pokemons/Provider';
+
+function App() {
+  return (
+    <PokemonProvider>
+      <Buscar/>
+    </PokemonProvider>
+  );
+}
+
+EN EL DOCUMENTO QUE QUERAMOS USAR GETPOKEMONS, POR EJEMPLO EN EL COMPONENTE BUSCAR(BURCAR.JS)
+
+import { useContext, useEffect } from "react"
+import PokemonContext from "../../context/pokemons"
+const Buscar=()=> {
+
+    const {getPokemons, pokemon} = useContext(PokemonContext)
+
+    
+    useEffect(()=> {
+      getPokemons()
+
+    },[])
+
+    console.log(pokemon)
+---------------------------------
+HACER DOBLE DESTRUCTURING (nos envian un objeto con varios datos por props)
+
+export default Saludar=(props)=> {
+	const {data: {nombre, apellido, edad}}= props
+	console.log(apellido)
+}
+---------------------------------------
+USE ESTATE CON VALOR OBJETO (expres operator)
+
+const [coche, setCoche]=useState({'encendido':false, 'km':2000})
+
+<button onClick={()=> setCoche({...coche, 'encendido': !coche.encendido})}>
+
+-------------------------------LIBRERIAS
+MATERIAL UI
+MOMENTS JS
+TAILWIND CSS
+SASS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

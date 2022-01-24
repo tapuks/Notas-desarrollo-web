@@ -114,7 +114,7 @@ en user vamos a admin.py :
 
 Si quieres añadir mas cosas como redes sociales , se añaden en models y luego en admin.py
 
-----------SIMPLE-JWT-------------(login)
+----------SIMPLE-JWT-------------(token)
 
 pip install djangorestframework-simplejwt
 
@@ -127,6 +127,14 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
     ...
+}
+
+mas cosas....
+
+# PONER TIEMPO AL TOKEN Y AL REFRESH TOKEN
+SIMPLE_JWT = {
+    'ACCES_TOKEN_LIFETIME': datetime.timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7)
 }
 
 
