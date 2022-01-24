@@ -57,4 +57,12 @@ GUARDAR LA IMAGEN EN UN ARCHIVO TAR
 docker save -o irrifront.tar irrifron:v1
 IMPORTAR EL ARCHIVO .TAR PARA QUE SE CREE UNA IMAGEN
 docker import irrifront.tar
+------------------------------
+docker build -t img_docker .
+docker run -p 4000:3000 img_docker
+http://localhost:4000/
+docker save img_docker:latest > img_docker.tar
+docker load < img_docker.tar
+
+
 
