@@ -1,0 +1,27 @@
+Para correr :js: en nuestra máquina necesitamos instalar un motor de JS llamado nodeJS, porque en general es el explorador el que ejecuta JS y no hay nada por defecto en nuestras máquinas para correr javascript. Sin embargo, como trabajaremos con varias versiones de nodeJS, no vamos a instalarlo directamente sino que instalaremos un manejador de versiones de nodeJS llamado nvm por Node Version Manager.
+Aquí están los pasos:
+Usar "Agregar o quitar programas" para desinstalar Node.js, sea cual sea la versión que tengan
+Asegurarse de eliminar carpetas que hayan sobrevivido a la desinstalación con nombres como nodejs, npm y node_modules que se encuentren dentro de las siguientes carpetas:
+c:\Program Files> y/o c:\Archivos de Programa>
+c:\Users\(su nombre de usuario)\AppData\Local>
+c:\Users\(su nombre de usuario)\AppData\Roaming>
+c:\Users\(su nombre de usuario)\Application Data>
+c:\Users\Default\AppData\Local>
+c:\Users\Default\AppData\Roaming>
+c:\Users\Default\Application Data>
+No todos tendrán todas esas carpetas y en algunas no habrá nada de nodejs o npm; pero es importante que busquen y eliminen las que consigan.
+Usen "ver elementos ocultos" si están usando el explorador de archivos, ls -la si están usando git bash, o dir /A si están usando la terminal de Windows. Borren también archivos ocultos con estos nombres si los ven en esas carpetas:
+.npmrc
+.npm
+.node-gyp
+.node_repl_history
+Una vez hayan borrado todo eso, descarguen en este enlace: https://github.com/coreybutler/nvm-windows/releases/tag/1.1.9 el archivo que se llama nvm-setup.zip
+Extraigan el ejecutable del .zip que descargaron y córranlo para que inicie el instalador de nvm para Windows (pueden decir que sí a todo, es bastante estándar)
+Al finalizar la instalación abran git bash (si lo tenían abierto ciérrenlo y ábranlo nuevamente) e intenten verificar la versión de nvm con nvm version, debería devolver la versión del nvm instalado (1.1.9)
+Ahora pueden instalar una versión de node, por ejemplo, 12.13.0 con el siguiente comando: nvm install 12.13.0
+Ahora podrían instalar la versión 10.16.3 de node con el comando: nvm install 10.16.3
+Para verificar las versiones que tienen instaladas usen nvm list
+Para usar una versión, por ejemplo 10.16.3, y que la laptop reconozca nodeJS, npm y npx, van a usar el comando nvm use 10.16.3
+Para instalar dependencias de un proyecto, usen npm install en su carpeta de proyecto, al nivel del package.json
+Para corregir los warnings usen npm audit fix
+Listo! Ahora pueden ejecutar en sus máquinas código JS usando comandos de node y su instalador de paquetes npm
