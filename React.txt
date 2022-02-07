@@ -124,6 +124,25 @@ const [coche, setCoche]=useState({'encendido':false, 'km':2000})
 
 <button onClick={()=> setCoche({...coche, 'encendido': !coche.encendido})}>
 
+setDate(prevState => [...prevState, valor[0]]);
+
+
+
+onChange={e => {
+	const { value } = e.target;
+	setNewValorsObjectModifyPoint(prevState => ({
+	...prevState, high: value?
+	}));
+}}
+
+
+
+CAMBIAMOS LA POSICION DE UN ARRAY POR OTRO 
+arrayPerros.splice(position, 1, newValorsObjectModifyPoint.wet);
+
+
+
+
 -------------------------------LIBRERIAS
 MATERIAL UI
 MOMENTS JS
