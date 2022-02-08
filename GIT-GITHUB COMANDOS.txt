@@ -64,6 +64,7 @@ npm install 14
 npm install
 cp ./.env.example ./.env
 
+<<<<<<< HEAD
 SI NO:
 borras el packaje-lock.json
 Abres la cmd con administrador:
@@ -72,4 +73,7 @@ npm install
 creas el .env
 borras el .env-example
 npm run start
+
+=======
+rm -r -force node_modules
 
