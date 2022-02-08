@@ -1,5 +1,5 @@
 
-USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA. USA MAP PARA RECORRER LA LISTA DE OBJETOS Y FOR-IN PARA CAMBIAR DE NUMERO EN EL ARRAY 
+USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA. USA MAP PARA RECORRER ARRAYS Y FOR-IN PARA RECORRER OBJETOS
 const arrayImagenes = 'https://www.youtube.com/watch?v=QBLbX', 'https://www.youtube.com/wat'
 ROW FINCTION
 return (
@@ -51,6 +51,24 @@ return (
         })
 
 
+forEach: (no devuelve nada)Esto itera sobre una lista y aplica alguna operación con efectos secundarios a cada miembro de la lista (ejemplo: guardar cada elemento de la lista en la base de datos)
+
+map: Esto itera sobre una lista, transforma cada miembro de esa lista y devuelve otra lista del mismo tamaño con los miembros transformados (ejemplo: transformar la lista de cadenas a mayúsculas)
+//MAP
+var a = [5,10,15,20];
+let c = a.map(num => {
+	return num + 1;
+});
+//6,11,16,21
+
+//FOR IN PARA RECORRER OBJETOS
+let gatos = { nombre: "ruby", edad: 2 };
+	for (let gato in gatos) {
+		console.log("for in", gato);// nombre//edad
+		console.log("for in", gatos[gato]);//ruby//edad
+	}
+
+
 
 
 
@@ -64,7 +82,7 @@ CONTEXT
 	CREAR DOCUMENTO PROVIDER.JS
 const PokemonProvider=({children})=> {
 	const [pokemon, setPokemon]=useState([])
-	const getPokemons=()=>FETCH A LA API POKEMON Y DUARDAMOS  EL RESULT.JSON EN setpokemon(result)
+	const getPokemons=()=>FETCH A LA API POKEMON Y GUARDAMOS  EL RESULT.JSON EN setpokemon(result)
 
 
     return (
