@@ -149,13 +149,21 @@ MOMENTS JS
 TAILWIND CSS
 SASS
 
+//BORRAR 
+const deleteTableRowFarm = farm_name => {
+		const newArray = arrayFarm.filter(valor => valor.farm_name != farm_name);
+		setArrayFarm(newArray);
+
+//PASAR STATE OBJERO A STATE ARRAY
+setArrayFarm(arrayFarm.concat(farm));
+
+PARA QUE UN FOR IN VALGA EN EL RETURN, PASAR EL STATE OBJETO A ARRAY Y ENTONCES YA PUEDES USAR EL MAP Y DENTRO DEL MAP EL FOR IN
 
 
+if (data?.length)
 
-
-
-
-
+//PONER UN ESTILO O OTRO CON UNA CONDICION EN EL CLASSNAME
+className={`center ${step.step1 == true && "selected"}`}
 
 
 
