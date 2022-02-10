@@ -55,9 +55,25 @@ rm -R -f ./migrations &&pipenv run init &&psql -U gitpod -c 'DROP DATABASE examp
 actualiza rama con lo de main
 git pull origin main
 
+
+
+SI NO TE VA EL LOCALHOST AL DECARGAR UN PROYECTO DE GITHUB.
+
 rm -rf node_modules
-nvm install 14
+npm install 14
 npm install
 cp ./.env.example ./.env
 
+<<<<<<< HEAD
+SI NO:
+borras el packaje-lock.json
+Abres la cmd con administrador:
+npm install -g windows-build-tools
+npm install
+creas el .env
+borras el .env-example
+npm run start
+
+=======
 rm -r -force node_modules
+
