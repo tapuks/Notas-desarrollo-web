@@ -69,7 +69,11 @@ let gatos = { nombre: "ruby", edad: 2 };
 	}
 
 
+//PARA RECORRER UN OBJETO CON MAP
 
+Object.keys(data).map(function(option, index){
+	console.log(option)
+}
 
 
 ----------------------------
