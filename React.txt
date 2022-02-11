@@ -144,6 +144,8 @@ const [coche, setCoche]=useState({'encendido':false, 'km':2000})
 
 setDate(prevState => [...prevState, valor[0]]);
 
+let name = {...name, 'david':30}
+
 
 
 onChange={e => {
@@ -168,8 +170,12 @@ TAILWIND CSS
 SASS
 
 
-
-
+---------------------------------------
+let var1 = {}
+for (let valor in data) {
+	var1[valor]=data[valor]
+}
+//var 1 = {'david':30}
 
 
 
