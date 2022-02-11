@@ -197,7 +197,7 @@ if (data?.length)
 
 //PONER UN ESTILO O OTRO CON UNA CONDICION EN EL CLASSNAME
 className={`center ${step.step1 == true && "selected"}`}
->>>>>>> e6e86b9308333f024e8e2c66a8fa17e5c6f00f88
+<div style={{ display: step.step1 == false ? "none" : "block" }}>
 
 
 
