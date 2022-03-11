@@ -73,7 +73,12 @@ let gatos = { nombre: "ruby", edad: 2 };
 
 Object.keys(data).map(function(option, index){
 	console.log(option)
-}
+})
+
+PARA DEVOLVER MAS COSAS CON MAP, O HACER EL ARRAY PUSH O let c = a.map(num => {
+									<option>{a.title}</option>
+									}
+									return c
 
 
 ----------------------------

@@ -1,4 +1,128 @@
-ng serve --open
-crtrl+c cancelar localhost
+INTALAR ANGULAR 
+	npm install -g @angular/cli
+NUEVO PROYECTO
+	ng new NombreDelProyecto
+LEVANTAR SERVIDOR
+	ng serve / npm run start
+LOCAL HOST
+	http://localhost:4200
+NUEVO COMPONENTE
+	ng generate c nuevoComponente
+	ng generate c nuevoComponente --skipTests   ->Elimina los documentos de test
+CREAR SERVICE
+	ng g service shared/data
+INSTALAR TYPESCRIPT
+	npm install -g typescript
 
-//crear componente 	ng g c probando
+-----------------------------------
+
+INTERFAZ es una serie de normas, metodos que he definido en la interfaz y que tiene cumplir quien implemente esa interfaz
+MVC - VISTA (HTML, CSS), CONTROLADOR (CLASE)
+
+FUNCION
+function sumar(a,b){
+	return a+b
+}
+const sumar = function(a:number, b:number):number {
+	return a+b
+}
+//com ?puedes pasar el parametro o no
+function nombre(nombre: string, apellido?: string):string {
+	if(apellido) return nombre + apellido
+	else return nombre
+}
+//con ... puedes pasar todos los parametro que quieras
+function nombres(nombre: string, ...restoNombres: string[]):string {
+	return nombre + " " + retoNombres.join(' ')
+}
+
+//ngFor
+<ul>
+    <li *ngFor="let user of users">
+        {{user.name}}
+    </li>
+</ul>
+__________________________________________________________
+export class NuevoComponenteComponent implements OnInit {
+//DECLARACION DE VARIABLES
+	mensaje: string
+  
+//INICIACION DE VARIABLES		
+  constructor() {
+	this.mensaje= 'Hola que tal'
+ }
+
+  ngOnInit(): void {
+  }
+  mensaje(){
+    alert(this.mensaje)
+  }
+
+}
+________________________________________________________
+<p id={{idParrafo}}> lorem impo</p>
+<p [id]="idParrafo"> lorem impo</p>  -> es lo mismo
+<div style="margin-top: 100px;"><div style="margin-top: 100px;">
+
+_______________________________________________________
+EVENTOS
+<button (click)="pulsa()">Pulsaa</button>
+
+ <select (change)="onChange($event)">
+    <option value="uno">Uno</option>
+    <option value="dos">Dos</option>
+    <option value="tres">Tres</option>
+  </select>
+
+<input type="text" (input)="onInput($event)">  //PARA LOS INPUT TIPO TEXT
+
+_______________________PROPS @INPUT (para passar cosas entre el componente padre al hijo)______________________________________________
+importar Input de @angular/core
+
+export class CalculadoraComponent implements OnInit {
+    @Input() mensaje: string
+  constructor() {
+    this.mensaje='Mensaje de alerta por defecto'
+  }
+llamamosn al componente <app-calculadora mensaje="Mensaje pasado por @input"></app-calculadora>
+
+PODEMOS CAMBIAR EL NOMBRE DEL PARAMETRO
+  @Input('sms') mensaje: string
+<app-calculadora sms="Mensaje pasado por @input"></app-calculadora>
+
+PARA PASAR UN VALOR JAVASCRIPT SE LE PONE CORCHETE 
+	<app-suma [num1]="25" [num2]="24" ></app-suma>
+
+_______________________PROPS @OUTPUT (para pasar cosas entre componentes de hijo a padre)_______________________________
+importar Output, EventEmitter de @angular/core
+export class CalculadoraComponent implements OnInit {
+
+    @Output() alertaPulsada: EventEmitter<string>
+constructor() {
+    this.alertaPulsada= new EventEmitter()
+  }
+onClick2() {
+    this.alertaPulsada.emit('mensaje emitido')
+  }
+
+//en el html   <div(click)="onClick2()"> <h1>titulodsds</h1> </div>
+//en el html padre  <app-calculadora (alertaPulsada)="onAlertaPulsada($event)"></app-calculadora>
+//en el ts del padre   export class AppComponent {
+  	title = 'NUEVO';
+    	onAlertaPulsada($event:string) {
+      console.log($event);
+   }
+}
+____________________PARA PODER MODIFICAR UNA VARIABLE RENDERIZADA DESDE UN INPUT _______________________
+importamos FormsModule
+//en app.module.ts    import { FormsModule } from '@angular/forms';  y en el array de imports ponerlo  imports: [BrowserModule,FormsModule],
+// en el html <input type="text" [(ngModel)]="campoTexto">
+		<p>{{campoTexto}}</p>
+//en el ts    campoTexto :string
+  	    constructor() {
+   		 this.campoTexto="Valor inicial"
+  	    }
+
+
+
+
