@@ -1,3 +1,4 @@
+code . desde la consola se abre en visual studio code
 
 USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA. USA MAP PARA RECORRER ARRAYS Y FOR-IN PARA RECORRER OBJETOS
 const arrayImagenes = 'https://www.youtube.com/watch?v=QBLbX', 'https://www.youtube.com/wat'
@@ -48,7 +49,7 @@ return (
             return(
             <div>{value.title}</div>
             )
-        })
+        });
 
 
 forEach: (no devuelve nada)Esto itera sobre una lista y aplica alguna operación con efectos secundarios a cada miembro de la lista (ejemplo: guardar cada elemento de la lista en la base de datos)
@@ -166,8 +167,10 @@ onChange={e => {
 
 
 
-CAMBIAMOS LA POSICION DE UN ARRAY POR OTRO 
+CAMBIAMOS EL VALOR DE LA POSICION DE UN ARRAY POR OTRO 
 arrayPerros.splice(position, 1, newValorsObjectModifyPoint.wet);
+BORRAR UN VALOR DE UN ARRAY
+arrayPerros.splice(INDICE, 1);
 
 
 
@@ -176,9 +179,15 @@ arrayPerros.splice(position, 1, newValorsObjectModifyPoint.wet);
 MATERIAL UI
 MOMENTS JS
 TAILWIND CSS
-SASS
+NODE SASS
 
 <<<<<<< HEAD
+React-Toastify
+
+_____________________________________
+CREAR CARPETA ASSETS/IMG
+CARPETA UTILS/CONSTANTS
+
 
 ---------------------------------------
 let var1 = {}
@@ -208,6 +217,46 @@ if (data?.length)
 className={`center ${step.step1 == true && "selected"}`}
 <div style={{ display: step.step1 == false ? "none" : "block" }}>
 
+__________________________________
+INDEX.JS
+
+export {default} from './TopMenu
+___________________________________
+USE FETCH
+
+export default function useFetch(url, options) {
+    const [loading, setLoading] = useState(true)
+    const [result, setResult] = useState(null)
+    const [error, setError] = useState(null)
+
+    useEffect(()=> {
+        (async ()=> {
+            try {
+                const res = await fetch(url, options);
+                const json = await res.json()
+                setResult(json)
+                setLoading(false)
+            }catch(err) {
+                setError(err)
+                setLoading(false)
+            }
+        })();
+
+    },[url, options])
+
+    return {loading, result, error}
+
+}
+________________________________________
+
+PONER IMAGEN DENTRO DE UN BOTON
+import { ReactComponent as CarrritoVacio } from '../../assets/img/cart-empty.svg'
+<Button variant='link' className='carrito'><CarrritoVacio /></Button>
+
+PARA DAR COLOR A UN SVG EN EL CSS
+svg {
+	color:white;
+}
 
 
 
