@@ -39,12 +39,12 @@ ________________________________________________________________________________
 5.4 Marcamos el directorio futbol, osea el nombre que le hemos dado al proyecto django, boton derecho y abajo de todo 'Mark directory' ass ->Sourcees root
 
 5.5 Añadimos el modelo user en el panel administrador (admin.py)
-	from django.contrib.auth import admin
+	from django.contrib import admin
 	from futbol.users.models import User
 	from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 	@admin.register(User)
 	class UserAdmin(BaseUserAdmin):
-    	pass
+    		pass
 
 5.6 Le decimos que los usuarios se van a controlar desde esta aplicacion, en settings.py abajo de todo poner:
 	AUTH_USER_MODEL = 'users.User'  (le estamos diciendo que en la carpeta users el modelo user)
@@ -54,7 +54,7 @@ ________________________________________________________________________________
 5.8 Hacemos la migracion para que crea las tablas del usuario
 python .\manage.py migrate
 
-5.9 Creamos el Usuario
+5.9 Creamos el Usuario    python manage.py createsuperuser
 5.9.1 Podemos arrancar el servidor e ir a /admin   todavia el user no es el email
 
 5.9.2 Ponemos el email envez de el nombre de usuario->vamos models.py de users
@@ -102,6 +102,7 @@ python .\manage.py migrate
 	en settings abajo de todo, debajo de static_url.->     STATIC_ROOT ='./static/'
 	EN LA TERMINAL-> 	python .\manage.py collectstatic
 	se crea sola la carpeta static y ya podemos lanzar el servidor
+_________________________________________________________________
 
 8. PRIMER ENDPOINT (REGISTRO DE USUARIO)
 8.1 Dentro de la carpeta user creamos una carpeta llamada api
@@ -176,7 +177,7 @@ urlpatterns = [
     path('auth/token/refresh/', TokenRefreshView.as_view())
 ]
 9.4 Ya tenemos los dos endpoint, el de login que te devuelve el token y refresh token, y el de refresh_token para poder refrescarlo cuando quieras.
-
+_______________________________________________________________________________________
 10. Endpoint que nos devuelbe los datos del usuario, excepto el password
 10.1 en users-serializers.py creamos una nueva clase
 
