@@ -8,6 +8,59 @@ docker logs f2a09f7177bd (el numero es el id del contenedor) -> corre el contene
 docker logs -f b2a09f7177bd (el numero es el id del contenedor) -> corre el contenedor y se queda en espera
 docker stop f3bkerfe4tg -> detiene contenedor 
 docker rmi 2fjfsfdsff ->borra una imagen
+docker rm <idContenedor>    ||o tambien|| docker rm <nameContenedor> 	borra un contenedor. Si el contenedor esta activo hay que poner -f delante docker rm -f jsdfjdsjf 
+docker run  <nameImagen> --name <names> -> corremos contendedor ??? nose si es asi
+docker start <idContainer>    corremos contenedor
+docker rename <containerNameOrId> <newName>  Renombramos un contenedor
+
+para descargar una imagen sin correrla: docker pull postgres
+para ponerla en marcha una vez descargada: docker run -d -e POSTGRES_PASSWORD=password postgres
+
+un contenedor es una imagen descargada corriendo en tu ordenador.
+
+________________________________________
+
+PLANTILLA DOCKERFILE:
+
+FROM node:12.22.1-alpine3.11   -> SE PONE LA IMAGEN DE NODE QUE TIENE TODOS LOS NPM Y DEMAS Y SE PONE EL TAG 12.22.1 ALPINE QUE ES MUY LIGERO, SI PONES UBUNTU OCUPA MAS
+
+WORKDIR /app    -> SE CREARA UNA CARPETA APP 
+COPY . .	-> SE VA A COPIAR TODO LO QUE TENGAMOS A LA MISMA ALTURA QUE DOCKERFILE DENTRO DE LA CARPETA APP
+RUN yarn install --production		-> INSTALA Y COMPILA TODO EL CODIGO
+
+CMD ["node", "/app/src/index.js"]		->CUANDO HAGAMOS EL RUN DE ESTA IMAGEN SE EJECUTE EL COMANDO NODE DIRECTAMENTE EN EL FCHERO INDEX.JS
+
+
+_____________________________________
+CREAR IMAGEN A TRAVES DE LA PLANTILLA (C:\Users\DBERDIELL\Desktop\curso_docker\app> (estando en la ruta donde esta docker)
+
+VAMOS EN LA CONSOLA A LA RUTA DONDE ESTA DOCKERFILE QUE ES EN LA RAIZ DEL PROYECTO.
+docker build -t <nombreImagen> .(el punto es la ruta, como estamos ya en la misma ruta ponemos .)  ----->    docker build -t my_aplicacion .
+
+CORRER LA IMAGEN
+ docker run -dp 3000:3000 my_aplicacion
+
+CUANDO CORREMOS EL CONTENEDOR LOS CAMBIO SE GUARDAN EN UNA BASE DE DATOS DE DOCKER, EL PROBLEMA ES QUE SI PARAMOS EL CONTENEDOR LOS DATOS NO SE GUARDAN.
+PARA QUE SE GUARDEN EN UNA BASE DE DATOS LOCAL HACEMOS:
+
+docker volume create todo-db  -> CREAMOS UN VOLUMEN
+docker run -dp 3000:3000 -v todo-db:/etc/todos my_aplicacion  -> CORREMOS EL CONTENEDOR CON EL VOLUMEN
+
+PARA VER DONDE SE GUARDA LA DB todo-db
+docker volume inspect todo-db
+
+_____________________________________
+PARA SUBIR IMAGEN A DOCKERHUB
+
+1. LE DAMOS UN TAG A LA IMAGEN   docker tag <IDIMAGEN> <NAMEUSER>/<NAMEIMAGEN>:v1    ->   docker tag 9cbd69a0b669 tapuks/my_aplication:v1
+2. SE CREA LA IMAGEN TAPUKS/MY_APLICATION AL HACER EL PUNTO 1
+3. LA SUBIMOS docker push tapuks/my_aplication:v1
+
+
+
+_____________________________________
+
+
 
 para desarrollar una aplicacion usando un contenedor de docker:
 vim Dockerfile -> entra en la consola de docker. en window creas un archivo Dockerfile en la raiz del proyecto y pones lo siguiente:
@@ -63,6 +116,8 @@ docker run -p 4000:3000 img_docker
 http://localhost:4000/
 docker save img_docker:latest > img_docker.tar
 docker load < img_docker.tar
+_________________________________
+
 
 
 

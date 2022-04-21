@@ -156,6 +156,14 @@ setDate(prevState => [...prevState, valor[0]]);
 
 let name = {...name, 'david':30}
 
+__________________________________________
+
+setArrayPalabra((prevState) => prevState.map(({ letter, encript }) => {
+            if (letter == letraClick) return { letter, encript: false }
+            else return { letter, encript }
+        }))
+______________________________________________
+
 
 
 onChange={e => {
@@ -216,6 +224,8 @@ if (data?.length)
 //PONER UN ESTILO O OTRO CON UNA CONDICION EN EL CLASSNAME
 className={`center ${step.step1 == true && "selected"}`}
 <div style={{ display: step.step1 == false ? "none" : "block" }}>
+num == 1 ? "A" : num == 11 ? "J" : num == 12 ? "K" : num;
+<div style={fallos < 1 ? { display: 'none' } : { display: 'block' }} className={`doll_muñeco-cabeza ${fallos == 6 && 'perdido'}`}></div>
 
 __________________________________
 INDEX.JS
@@ -257,6 +267,13 @@ PARA DAR COLOR A UN SVG EN EL CSS
 svg {
 	color:white;
 }
+
+document.body.style = "background: green;";
+
+_____________________________________
+{/* PASAMOS UNA FUNCION POR PROPS CON ARGUMENTO, ASI NOS DARAN EL DATO DEL ARGUMENTO Y LO PODEMOS USAR AQUI  */}
+        <BuscarCaja buscar={(parametro)=>alert(parametro)}/>
+	<button onClick={()=>props.buscar("naaa")}>Buscar</button>
 
 
 
