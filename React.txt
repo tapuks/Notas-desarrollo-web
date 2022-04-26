@@ -226,6 +226,7 @@ className={`center ${step.step1 == true && "selected"}`}
 <div style={{ display: step.step1 == false ? "none" : "block" }}>
 num == 1 ? "A" : num == 11 ? "J" : num == 12 ? "K" : num;
 <div style={fallos < 1 ? { display: 'none' } : { display: 'block' }} className={`doll_muñeco-cabeza ${fallos == 6 && 'perdido'}`}></div>
+<div className='card-player-photo' style={{ backgroundImage: `url(${image_path})` }}></div>
 
 __________________________________
 INDEX.JS

@@ -32,6 +32,8 @@ SERVICIO es una clase que se encarga de realizar unas acciones concretas sobre l
     console.log('Lo uso para lanzar acciones iniciales dentro de la plantilla');
   }
 
+__________________________________________________________
+
 FUNCION
 function sumar(a,b){
 	return a+b
@@ -48,6 +50,7 @@ function nombre(nombre: string, apellido?: string):string {
 function nombres(nombre: string, ...restoNombres: string[]):string {
 	return nombre + " " + retoNombres.join(' ')
 }
+________________________________________________________________
 
 //ngFor
 <ul>
@@ -75,6 +78,7 @@ export class NuevoComponenteComponent implements OnInit {
 
 }
 ________________________________________________________
+PODEMOS PONER EL JAVASCRIPT EN EL HTML DE ESTAS DOS MANERAS (ID)
 <p id={{idParrafo}}> lorem impo</p>
 <p [id]="idParrafo"> lorem impo</p>  -> es lo mismo
 <div style="margin-top: 100px;"><div style="margin-top: 100px;">
@@ -261,6 +265,37 @@ export class AppComponent {
   onClick() {
     let personas = this.personaService.getAll()
   }
+
+_________________________________
+DECLARACION DE VARIABLES
+
+ARRAY
+let numeros: number[]= [12, 24, 3, 6];
+let numeros2: Array<number> = [23, 45, 7]
+
+TUPLA (es un array de posiciones fijas y le podemos definir de que tipo seran)
+let sitio: [string, number] = ['Casa', 2022]
+
+ENUM (le asignamos al primer valor el numero 0, al segundo el uno...)
+enum Estado {
+	offline,
+	indefinido,
+	online
+}
+
+let status: Estado = Estado.online
+console.log(status)   -> devuelve el numero que es online (2)
+
+UNKNOWN (NO SABEMOS DE QIE TIPO SERA EL VALOR, PODREMOS MODIFICAR SU VALOR, PERO TIENE ALGUNA RESTRICCION)
+let sinTipo: unknown = 'Hola';
+sinTipo= 32;
+
+ANY( IGUAL QUE EL UNKNOWN, PERO SIN RESTRICCIONES)
+
+VOID(NO DEVUELVE NADA)
+function prueba(): void {
+	console.log('probandoo');
+}
 
 	
 
