@@ -1,0 +1,27 @@
+PARA INSTALARLO, VAMOS A START Y LE DAMOS A EL SIMBOLO DE REACT 
+
+npm i --save @fortawesome/fontawesome-svg-core
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+npm i --save @fortawesome/react-fontawesome@latest
+
+
+Y YA LO PODEMOS UTILIZAR:
+
+EN UN COMPOPNENTE IMPORTAMOS EL COMPONENTE FONTAWESOMEICON ASI:
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+AHORA IMPORTAMOS EL ICONO QUE QUERAMOS:
+import { faSass, faJs, faBootstrap } from "@fortawesome/free-brands-svg-icons";
+IMPORTANTE CUANDO ESCOGEMOS UN ICONO VER SI ES DE BRAND, SOLID O REGULAR (LO PONE AL LADO DEL NOMBRE DEL ICONO) Y DEPENDIENDO DE CUAL SEA SE IMPORTA CON FREE-BRANDS O FREE-SOLID...)
+
+EJEMPLO:
+<i class="fa-solid fa-chess"></i> este icono es de solid:
+lo importamos asi :    import { faChess } from "@fortawesome/free-solid-svg-icons";
+Lo usamos asi:
+<FontAwesomeIcon icon={faSass} style={{ fontSize: "40px", color: "pink" }}></FontAwesomeIcon>
+
+
+

@@ -1,4 +1,311 @@
-ng serve --open
-crtrl+c cancelar localhost
+----INTALAR ANGULAR 
+	npm install -g @angular/cli
+NUEVO PROYECTO
+	ng new NombreDelProyecto
+LEVANTAR SERVIDOR
+	ng serve / npm run start
+LOCAL HOST
+	http://localhost:4200
+NUEVO COMPONENTE
+	ng generate c nuevoComponente
+	ng generate c nuevoComponente --skipTests   ->Elimina los documentos de test
+CREAR SERVICE
+	ng g service shared/data
+	ng generate service services/Personas --skipTests
+INSTALAR TYPESCRIPT
+	npm install -g typescript
 
-//crear componente 	ng g c probando
+-----------------------------------
+
+INTERFAZ es una serie de normas, metodos que he definido en la interfaz y que tiene cumplir quien implemente esa interfaz
+MVC - VISTA (HTML, CSS), CONTROLADOR (CLASE)
+
+SERVICIO es una clase que se encarga de realizar unas acciones concretas sobre los diferentes datos de la aplicacion. Asi no tienes los datos en cada componente
+
+  constructor() {
+    console.log('Lo uso para inicilizar propiedades');
+    }
+  ngOnInit(): void {
+    console.log('Lo uso para lanzar acciones al arrancar el componente');
+  }
+  ngAfterViewInit(){
+    console.log('Lo uso para lanzar acciones iniciales dentro de la plantilla');
+  }
+
+__________________________________________________________
+
+FUNCION
+function sumar(a,b){
+	return a+b
+}
+const sumar = function(a:number, b:number):number {
+	return a+b
+}
+//con ?puedes pasar el parametro o no
+function nombre(nombre: string, apellido?: string):string {
+	if(apellido) return nombre + apellido
+	else return nombre
+}
+//con ... puedes pasar todos los parametro que quieras
+function nombres(nombre: string, ...restoNombres: string[]):string {
+	return nombre + " " + retoNombres.join(' ')
+}
+________________________________________________________________
+
+//ngFor
+<ul>
+    <li *ngFor="let user of users">
+        {{user.name}}
+    </li>
+</ul>
+__________________________________________________________
+export class NuevoComponenteComponent implements OnInit {
+//DECLARACION DE VARIABLES
+	mensaje: string;
+	personas: any[];
+  
+//INICIACION DE VARIABLES		
+  constructor() {
+	this.mensaje= 'Hola que tal'
+	this.personas= ['david', 'jazmin']
+ }
+
+  ngOnInit(): void {
+  }
+  mensaje(){
+    alert(this.mensaje)
+  }
+
+}
+________________________________________________________
+PODEMOS PONER EL JAVASCRIPT EN EL HTML DE ESTAS DOS MANERAS (ID)
+<p id={{idParrafo}}> lorem impo</p>
+<p [id]="idParrafo"> lorem impo</p>  -> es lo mismo
+<div style="margin-top: 100px;"><div style="margin-top: 100px;">
+_______________________________________________________
+EVENTOS
+<button (click)="pulsa()">Pulsaa</button>
+
+ <select (change)="onChange($event)">
+    <option value="uno">Uno</option>
+    <option value="dos">Dos</option>
+    <option value="tres">Tres</option>
+  </select>
+
+<input type="text" (input)="onInput($event)">  //PARA LOS INPUT TIPO TEXT
+
+_______________________PROPS @INPUT (para passar cosas entre el componente padre al hijo)______________________________________________
+es como pasar algo por props, necesitamos un @input() con una variable, esa variable cogera el valor que le pasemos desde el componente padre.
+importar Input de @angular/core
+
+export class CalculadoraComponent implements OnInit {
+    @Input() mensaje: string
+  constructor() {
+    this.mensaje='Mensaje de alerta por defecto'
+  }
+llamamosn al componente <app-calculadora mensaje="Mensaje pasado por @input"></app-calculadora>
+
+PODEMOS CAMBIAR EL NOMBRE DEL PARAMETRO
+  @Input('sms') mensaje: string
+<app-calculadora sms="Mensaje pasado por @input"></app-calculadora>
+
+PARA PASAR UN VALOR JAVASCRIPT SE LE PONE CORCHETE 
+	<app-suma [num1]="25" [num2]="24" ></app-suma>
+
+_______________________PROPS @OUTPUT (para pasar cosas entre componentes de hijo a padre)_______________________________
+importar Output, EventEmitter de @angular/core
+export class CalculadoraComponent implements OnInit {
+
+    @Output() alertaPulsada: EventEmitter<string>
+constructor() {
+    this.alertaPulsada= new EventEmitter()
+  }
+onClick2() {
+    this.alertaPulsada.emit('mensaje emitido')
+  }
+
+//en el html   <div(click)="onClick2()"> <h1>titulodsds</h1> </div>
+//en el html padre  <app-calculadora (alertaPulsada)="onAlertaPulsada($event)"></app-calculadora>
+//en el ts del padre   export class AppComponent {
+  	title = 'NUEVO';
+    	onAlertaPulsada($event:string) {
+      console.log($event);
+   }
+}
+____________________PARA PODER MODIFICAR UNA VARIABLE RENDERIZADA DESDE UN INPUT _______________________
+importamos FormsModule
+//en app.module.ts    import { FormsModule } from '@angular/forms';  y en el array de imports ponerlo  imports: [BrowserModule,FormsModule],
+// en el html <input type="text" [(ngModel)]="campoTexto">
+		<p>{{campoTexto}}</p>
+//en el ts    campoTexto :string
+  	    constructor() {
+   		 this.campoTexto="Valor inicial"
+  	    }
+__________________________________DIRECTIVAS__________________________________________
+<p [ngStyle]="{color:'red', fontSize:'24px'}"> Ponemos estilos.</p>
+<p [ngClass]="{semaforo: true, redondo: false}">Mostramos las clases que queramos.</p>
+<p *ngIf="true">Si es true se muestra, si es false no.</p>
+
+<p *ngIf="false; else elseBlock">Si es true se muestra, si es false se muestra el del else</p>
+<ng-template #elseBlock>
+  <p>Elseee</p>
+</ng-template>
+
+<ol>
+  <li *ngFor="let persona of personas">
+      {{persona.nombre}} {{persona.apellido}}
+  </li>
+</ol>
+
+<div [ngSwitch]="opcionString">
+  <p *ngSwitchCase="'uno'">Opcion 1</p>
+  <p *ngSwitchCase="'dos'">Opcion 2</p>
+  <p *ngSwitchDefault>Ninguna de las anteriores</p>
+</div>
+
+//Para crear una propia directiva->
+ng generate directive directivas/Subrayado --skipTests
+	import { Directive, ElementRef, Renderer2 } from '@angular/core';
+	@Directive({
+  		selector: '[appSubrayado]'
+	})
+		export class SubrayadoDirective {
+  			constructor(elem: ElementRef, renderer: Renderer2) {    				
+    				renderer.setStyle(elem.nativeElement, 'text-decoration', 'underline')
+   		}
+	}
+Luego lo usas de esta manera: <h1 appSubrayado>Caja Registradora</h1>
+__________________________________________
+//ternario  
+    <button (click)="onClick(tarea)">{{tarea.completa? 'INCOMPLETA' : 'COMPLETA'}}</button>
+//indice en un for 
+	<div class="tarea" *ngFor="let tarea of tareas; let indice= index" [ngClass]="{completa:tarea.completa, incompleta:!tarea.completa}>
+
+____________________NUEVO MODELO______________________________________
+export class Producto {
+  nombre: string;
+  imagen: string;
+  precio: number;
+
+  constructor(pNombre: string, Pimagen: string, pPrecio: number) {
+    this.nombre=pNombre
+    this.imagen=Pimagen;
+    this.precio=pPrecio;
+  }
+}
+
+_____________________RUTAS_________________________
+//en app-routing.module.ts
+const routes: Routes = [
+  {path: '', pathMatch:'full', component: Home},
+  {path: 'informacion', component: InfoComponent},
+  {path: 'about', component: AboutComponent},
+  {path: '**', redirectTo: 'about'}
+];
+//En app.component.html poner    <router-outlet></router-outlet>
+
+PARA IR A UNA RUTA DESDE UN ENLACE, NO PUEDES HACER CON <A HREF=... PORQUE TE RECARGA LA PAGINA.
+SE HACE DE ESTA MANERA.
+  <a [routerLink]="['/informacion']">Informacion</a>
+  <a [routerLink]="['/informacion']" routerLinkActive="activa">Informacion</a>  //Con routerLinkActive le pones una clase al enlace cuando esta en esa ruta
+
+//DESDE UN BOTON.
+en el html  <button (click)="onClick()">Ir a about</button>
+en el ts 
+	export class AppComponent {
+  		title = 'Rutas-Angular';
+  		constructor(private router: Router) {}
+  		onClick() {
+    		this.router.navigate(['/about'])
+  		}
+
+PARA RECOGER EN NUMERO DE UN ID PASADO POR LA RUTA (IGUAL QUE USE PARAMS):
+
+declaramos la ruta  {path: 'empleado/:id', component: DetalleEmpleadoComponent},
+//en el .ts de empleado 
+	constructor(private activatedRoute: ActivatedRoute) {}
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.empleadoId = params["id"]
+    })
+  }
+
+PARA PONER UNA RUTA DENTRO DE OTRA YA. (CHILDREN)
+//En las rutas {path: 'empleado/:id', component: DetalleEmpleadoComponent, children: [
+    {path: 'modificar', component: ModificarComponent},
+    {path: 'info', component: InfoComponent}
+  ]}
+//En el html de ese componente (empleado) hay que poner:   <router-outlet></router-outlet>
+
+Para recoger el id pasado por la ruta desde el padre seria 
+constructor(private activatedRoute: ActivatedRoute) {}
+  ngOnInit(): void {
+    this.activatedRoute.PARENT.params.subscribe(params => {    //.parent porque tien que pasar por el padre
+      this.empleadoId = params["id"]
+    })
+  }
+
+_______________________SERVICES__________________________
+1- ng generate service services/Personas --skipTests
+2- En personas.services.ts declaras una variable y los metodos...
+export class PersonasService {
+  personas: Persona[]
+  constructor() {
+    this.personas = [new Persona('David', 'Berdiell', 31, true)]
+   }
+   getAll(){
+     return this.personas
+   }
+}
+3- En el ts del compoenente que quieras usarlo importas la clase PersonaService y:
+export class AppComponent {
+  title = 'Rutas-Angular';
+  constructor(private personaService: PersonasService) {}  //pones la clase en el constructor y ya puedes usar sus metodos
+  onClick() {
+    let personas = this.personaService.getAll()
+  }
+
+_________________________________
+DECLARACION DE VARIABLES
+
+ARRAY
+let numeros: number[]= [12, 24, 3, 6];
+let numeros2: Array<number> = [23, 45, 7]
+
+TUPLA (es un array de posiciones fijas y le podemos definir de que tipo seran)
+let sitio: [string, number] = ['Casa', 2022]
+
+ENUM (le asignamos al primer valor el numero 0, al segundo el uno...)
+enum Estado {
+	offline,
+	indefinido,
+	online
+}
+
+let status: Estado = Estado.online
+console.log(status)   -> devuelve el numero que es online (2)
+
+UNKNOWN (NO SABEMOS DE QIE TIPO SERA EL VALOR, PODREMOS MODIFICAR SU VALOR, PERO TIENE ALGUNA RESTRICCION)
+let sinTipo: unknown = 'Hola';
+sinTipo= 32;
+
+ANY( IGUAL QUE EL UNKNOWN, PERO SIN RESTRICCIONES)
+
+VOID(NO DEVUELVE NADA)
+function prueba(): void {
+	console.log('probandoo');
+}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+

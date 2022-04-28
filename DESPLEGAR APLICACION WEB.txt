@@ -1,0 +1,56 @@
+HEROKU:
+
+PARA DESPLEGAR UNA APLICACION REACT EN HEROKU ES MUY PARECIDO A SUBIRLA A GIT HUB.
+
+DESCARGAR HEROKU CLI PARA WINDOWS Y SE INSTALA 
+EN NUESTRO PROYECTO PONEMOS EN LA CONSOLA:
+
+
+heroku create -b https://github.com/mars/create-react-app-buildpack.git  -> ESTO CREA UN PROYECTO EN HEROKU Y TE LO ENLAZA CON EL. SI NO DEJA DE ESTA MANERA
+DESDE HEROKU CREAR UN REPOSITIORIO NUEVO Y ENLAZARLO CON EL ENLACE QUE TE DA.
+git add .
+git commit -m "react-create-app on Heroku"
+git push heroku master
+heroku open
+
+SI HACEMOS git remote -v te salen los repos a los que tienes enlazado la app, si quieres eliminar uno pones:
+git remote remove heroku (eliminaremos el de heroku)
+_____________________________________________________________
+
+NETLIFY (SOLO PODEMOS TENER 3 PROYECTOS)
+
+vas a tu aplicacion y hacemos ->  npm run build
+Se crea la carpeta build
+
+VAS A SITES EN NETLIFY Y ARRASTRAMOS LA CARPETA BUILD, SE CREA YA LA URL DE LA PAGINA
+
+
+ENLACE A MIS REPOS:
+
+ 		portfolio : https://portfoliodberdiell.herokuapp.com/
+
+                    title: "Tweeter simulator",
+                    
+                    enlace: "https://euphonious-tiramisu-a1c650.netlify.app/"
+              
+                    title: "Ecommerce Carrito",
+                   
+                    enlace: "https://pedidostapuks.herokuapp.com/"
+              
+                    title: "Movies",
+                 
+                    enlace: "https://creative-lily-623bc2.netlify.app/"
+                
+                    title: "Tragaperras",
+                  
+                    enlace: "https://stunning-horse-3dda0b.netlify.app/"
+               
+                    title: "Tres en ralla",
+                  
+                    enlace: "https://tres-ralla.herokuapp.com/"
+
+		    Ahorcado
+			https://ahorcado-db.herokuapp.com/
+                
+
+

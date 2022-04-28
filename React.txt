@@ -1,3 +1,4 @@
+code . desde la consola se abre en visual studio code
 
 USAR MAP EN EL HTM. EL MAP DEVUELBE UN VALOR EN CADA VUELTA. USA MAP PARA RECORRER ARRAYS Y FOR-IN PARA RECORRER OBJETOS
 const arrayImagenes = 'https://www.youtube.com/watch?v=QBLbX', 'https://www.youtube.com/wat'
@@ -48,7 +49,7 @@ return (
             return(
             <div>{value.title}</div>
             )
-        })
+        });
 
 
 forEach: (no devuelve nada)Esto itera sobre una lista y aplica alguna operación con efectos secundarios a cada miembro de la lista (ejemplo: guardar cada elemento de la lista en la base de datos)
@@ -69,7 +70,16 @@ let gatos = { nombre: "ruby", edad: 2 };
 	}
 
 
+//PARA RECORRER UN OBJETO CON MAP
 
+Object.keys(data).map(function(option, index){
+	console.log(option)
+})
+
+PARA DEVOLVER MAS COSAS CON MAP, O HACER EL ARRAY PUSH O let c = a.map(num => {
+									<option>{a.title}</option>
+									}
+									return c
 
 
 ----------------------------
@@ -146,6 +156,14 @@ setDate(prevState => [...prevState, valor[0]]);
 
 let name = {...name, 'david':30}
 
+__________________________________________
+
+setArrayPalabra((prevState) => prevState.map(({ letter, encript }) => {
+            if (letter == letraClick) return { letter, encript: false }
+            else return { letter, encript }
+        }))
+______________________________________________
+
 
 
 onChange={e => {
@@ -157,8 +175,10 @@ onChange={e => {
 
 
 
-CAMBIAMOS LA POSICION DE UN ARRAY POR OTRO 
+CAMBIAMOS EL VALOR DE LA POSICION DE UN ARRAY POR OTRO 
 arrayPerros.splice(position, 1, newValorsObjectModifyPoint.wet);
+BORRAR UN VALOR DE UN ARRAY
+arrayPerros.splice(INDICE, 1);
 
 
 
@@ -167,9 +187,15 @@ arrayPerros.splice(position, 1, newValorsObjectModifyPoint.wet);
 MATERIAL UI
 MOMENTS JS
 TAILWIND CSS
-SASS
+NODE SASS
 
 <<<<<<< HEAD
+React-Toastify
+
+_____________________________________
+CREAR CARPETA ASSETS/IMG
+CARPETA UTILS/CONSTANTS
+
 
 ---------------------------------------
 let var1 = {}
@@ -198,10 +224,64 @@ if (data?.length)
 //PONER UN ESTILO O OTRO CON UNA CONDICION EN EL CLASSNAME
 className={`center ${step.step1 == true && "selected"}`}
 <div style={{ display: step.step1 == false ? "none" : "block" }}>
+<<<<<<< HEAD
 
 const miEstilo = {color:'red', fontSize: '16px'}
 <p style={miEstilo}>hola que tal</p>
 
+=======
+num == 1 ? "A" : num == 11 ? "J" : num == 12 ? "K" : num;
+<div style={fallos < 1 ? { display: 'none' } : { display: 'block' }} className={`doll_muñeco-cabeza ${fallos == 6 && 'perdido'}`}></div>
+<div className='card-player-photo' style={{ backgroundImage: `url(${image_path})` }}></div>
+
+__________________________________
+INDEX.JS
+
+export {default} from './TopMenu
+___________________________________
+USE FETCH
+
+export default function useFetch(url, options) {
+    const [loading, setLoading] = useState(true)
+    const [result, setResult] = useState(null)
+    const [error, setError] = useState(null)
+
+    useEffect(()=> {
+        (async ()=> {
+            try {
+                const res = await fetch(url, options);
+                const json = await res.json()
+                setResult(json)
+                setLoading(false)
+            }catch(err) {
+                setError(err)
+                setLoading(false)
+            }
+        })();
+
+    },[url, options])
+
+    return {loading, result, error}
+
+}
+________________________________________
+
+PONER IMAGEN DENTRO DE UN BOTON
+import { ReactComponent as CarrritoVacio } from '../../assets/img/cart-empty.svg'
+<Button variant='link' className='carrito'><CarrritoVacio /></Button>
+
+PARA DAR COLOR A UN SVG EN EL CSS
+svg {
+	color:white;
+}
+
+document.body.style = "background: green;";
+
+_____________________________________
+{/* PASAMOS UNA FUNCION POR PROPS CON ARGUMENTO, ASI NOS DARAN EL DATO DEL ARGUMENTO Y LO PODEMOS USAR AQUI  */}
+        <BuscarCaja buscar={(parametro)=>alert(parametro)}/>
+	<button onClick={()=>props.buscar("naaa")}>Buscar</button>
+>>>>>>> ed0c5e1cb3696042e4c96848dae1860bf693dce0
 
 
 
