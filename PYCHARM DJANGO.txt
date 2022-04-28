@@ -48,7 +48,9 @@ class Persona
 class Movil -> foreign Key(persona)
 
 
-JUGADOR = Jugador.objects.get(equipo_id=id_equipo) ->GET DEVUELVE UN SOLO RESULTADOS
+jugador2 = Jugador.objects.get(equipo_id=id_equipo) ->GET DEVUELVE UN SOLO RESULTADOS
+jugador2.delete()
+
 plantilla = Plantilla.objects.filter(equipo_id=id_equipo) ->FILTER DEVUELVE TODOS LOS RESULTADOS
 
 -------DJANGO-------REST--------FRAMEWORK

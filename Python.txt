@@ -6,18 +6,18 @@ Los decoradores son funciones que decoran otras funciones (añaden funcionalidad
 miLista = ["Maria", "Pepe", "Marta", "Antonio"]
 miLista.append("David")
 miLista.append(2)
-miLista.extend(["jazmin", "raquel"])
+miLista.extend(["jazmin", "raquel"])-- añade otra lista a la existente
 miLista.remove("Marta")
 miLista.insert(3, "magi")
 print(miLista[:])
 miLista2=[4 , 5]
-miLista3= miLista+ miLista2
+miLista3= miLista+ miLista2 --- sumas dos listas y se guardan en una nueva
 print(miLista3)
 
 miDiccionario = {1:'curtua', 'pais':'Belgica', 'posicion': 'potero', 'zamoras': {'temporadas':[2010,2012,2014,2022]}}
-print(miDiccionario.keys())
-print(miDiccionario.values())
-print(len(miDiccionario))
+print(miDiccionario.keys())---imprime lista de las llaves
+print(miDiccionario.values())---imprime lista de los valores
+print(len(miDiccionario))---largo
 print(miDiccionario)
 
 salario = int(input('introdice tu salario'))

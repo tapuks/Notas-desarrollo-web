@@ -6,3 +6,10 @@ fuentes de texto--- google fonts	www.dafont.com		www.1001fonts.com   fontpair(fu
 ilustraciones---manypixels
 paleta de colores----colors.com
 giphy --- Buscador de gifs
+remove.bg --- eliminar fondo de las fotos
+cssbuttons.io---botones para tus proyectos
+mycolorspace---crea un color gradiente
+clean-up-pictures---borra lo que quieras de una imagen
+https://www.happyhues.co/  ---prueba distintas paleta de colores para hacer tu front
+https://imgupscaler.com/  --- pone una imagen de pocos pixeles en 4000px
+gitexplorer.com --- ves todos los comandos de git

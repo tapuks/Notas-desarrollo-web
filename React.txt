@@ -199,6 +199,9 @@ if (data?.length)
 className={`center ${step.step1 == true && "selected"}`}
 <div style={{ display: step.step1 == false ? "none" : "block" }}>
 
+const miEstilo = {color:'red', fontSize: '16px'}
+<p style={miEstilo}>hola que tal</p>
+
 
 
 

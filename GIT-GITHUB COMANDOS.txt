@@ -5,6 +5,9 @@ cd	 ../ 	dir   ls
 
 ruta de tus ficheros y haces:  git init
 
+git config --global user.name davidb
+git config --global user.email david_berdiell@hotmail.com
+
 git status : ves los archivos subidos y que te quedan por subir
 
 git add app.html : añades un archivo para subir     (git add .   añades todos)
