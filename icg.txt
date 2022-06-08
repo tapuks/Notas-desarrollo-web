@@ -1,0 +1,8 @@
+VIM 
+
+MODIIFICAR i
+esc
+SALIR SIN GUARDAR :q! 
+SAIR GUARDANDO :wq
+
+LEER DOCUMENTO lees CashdroService.log

@@ -2,3 +2,9 @@ extension -> bracket pair colorizer -> da color a los corchetes
 better comments -> da color a los comentarios
 error lens -> te dice el error en el codigo
 prettier
+
+
+settings-
+buscamos wrap- word wrap on, wrap line legth 0
+buscamos format- on paste true, on save true, on type true
+

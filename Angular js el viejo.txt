@@ -1,0 +1,367 @@
+<button ng-mouseup="mouseup()" ng-mousedown="mousedown()" style="width: 100px; padding:30px; ">Pulsa</button>
+		
+		<div style="width: 50px; height:50px; position:absolute; top:0; right:0" ng-click="pulsa()"></div>
+
+		<div id="language_container" data-ng-cotroller="LoginCtrl" ng-style="{'display':  seeLanguage==false ? 'none' : 'block'}">
+
+
+<div id="containerLanguage" style="width: 300px; height:300px;" ng-click="pulsa()">
+			<p ng-style="{'display':  seeLanguage==false ? 'none' : 'block'}" style="color: white; border: 2px solid white;padding: 20px;">holaaaaaa</p>
+</div>
+
+<td data-ng-show="(pieza.valueStr[pieza.valueStr.length-3])=='0' && (pieza.valueStr[pieza.valueStr.length-4])=='0' "><img style="width:30px; height: 20px" ng-src="{{pieza.isBill ? 'images/moneda-billete-universal/billete-logo.png': 'images/moneda-billete-universal/moneda-logo.png'}}">{{pieza.valueStr.substring(0, pieza.valueStr.length - 5)}}</td>
+
+
+
+	$scope.seeLanguage = false
+		let contadorSegundos = 0
+		let interval = undefined;
+		
+
+		$scope.mousedown = function(){
+				interval= setInterval(function(){
+				console.log(contadorSegundos)
+				contadorSegundos ++;
+				if (contadorSegundos >5){
+					$scope.seeLanguage= true
+					// clearInterval(interval);
+
+				} 
+			},1000);
+		}
+		
+		$scope.mouseup = function(){
+			contadorSegundos = 0;
+			clearInterval(interval);
+
+			console.log('levantoo')
+		}
+
+<p><img style=" height: 15px; color: white;" data-ng-style="{'width': pieza.isBill ? '30px' : '15px'" ng-src="{{pieza.isBill? 'images/moneda-billete-universal/billete_verde.png' : 'images/moneda-billete-universal/moneda_dorada.png'}}"></p><p>{{pieza.value/100}}</p>
+<piezimg src="{{pieza.isBill ? pieza.Image: ''}}"></td>
+<img ng-src="/images/ico_yes.png" ng-show="enquiry.buyer_email">
+<img ng-src="/images/ico_no.png" ng-show="!enquiry.buyer_email">
+
+
+_________________________________________________________________
+HACER ENDPOINT PHP
+
+DL_PARAMS  creamos las columnas de la base de datos y hacemos el select o lo que queramos
+/* ********************************************************************
+		 * Definir idioma general del cliente
+		 **********************************************************************/
+		public function setLanguageClient($value){
+
+			$sql = 'DELETE FROM parametersettings WHERE Id=20000';
+			$stmt= mysqli_prepare($this->db->connection, $sql);
+			$this->executeSQL($stmt);
+
+			$sql  = 'INSERT INTO parametersettings (Id,Value,Name) VALUES (?,?,?)';
+			$stmt = mysqli_prepare($this->db->connection, $sql);
+
+			$numparam = 20000;
+			$paramName= 'LANGUAGE';
+			$stmt->bind_param('iss', $numparam, $value, $paramName);
+			$this->executeSQL($stmt);
+
+			return true;
+		}
+
+
+		public function getLanguageClient(){
+			$result= 'enGB';
+			$sql = 'SELECT Value FROM parametersettings WHERE Id=20000';
+			$query=mysqli_query($this->db->connection, $sql);
+			if ($query){
+				$row = mysqli_fetch_assoc($query);
+				if ($row) {
+					$result = $row['Value'];
+				}
+				$query->close();
+			}
+
+			return $result;
+		}
+BL_PARAMS  se crea el objeto dl
+/**********************************************************************
+		 * Obtener idioma del cliente 
+		 **********************************************************************/
+		public function getLanguageClient() {
+			$dlparams = new DL_Params($this->db);
+
+			return $dlparams->getLanguageClient();
+		}
+
+		/**********************************************************************
+		 * Definir idioma del cliente 
+		 **********************************************************************/
+		public function setLanguageClient($value){
+			$dlparams=new DL_Params($this->db);
+			$this->db->beginTrans();
+			try {
+				 $dlparams->setLanguageClient($value);
+				 $this->db->commitTrans();
+				 return true;
+
+			} catch(exception $e){
+				$this->db->rollbackTrans();
+				throw $e;
+			}
+			
+		}
+INDEX añadimos operacion
+
+			if ($operation == 'getLanguageClient') {
+				$blparams = new BL_Params(null);
+				$language = $blparams->getLanguageClient();
+
+				$response = doResponse(1,$language);
+				deliver_response($response);
+
+			}
+
+			if ($operation == 'setLanguageClient') {
+
+				$value=null;
+				if (isset($_GET['language'])) {
+					$value=  $_GET['language'];
+
+		}
+				
+				$blparams = new BL_Params(null);
+				$language = $blparams->setLanguageClient($value);
+				
+				$response = doResponse(1,$language);
+				deliver_response($response);
+
+				return;				
+			}
+PARAMSSERVICE.JS -> CREAMOS FUNCION SERVICEPARAMS
+
+/**************************
+		* Obtener lenguaje comun del cliente
+		****************************/
+
+		this.getLanguageClient = function(onsuccess, onerror) {
+			lparams = {operation : 'getLanguageClient'};
+			httpService.doCallHttp(lparams,
+				function(data){
+					onsuccess(data);				                   	 		
+			   },
+			   function(code,serror){
+				   onerror(serror);				                   	 		
+			   });			
+		}
+
+		/**************************
+		* Modificar lenguaje comun del cliente
+		****************************/
+	
+
+		this.setLanguageClient=function(language,onsuccess,onerror){
+			lparams= {operation :'setLanguageClient',language : language};
+					  
+			httpService.doCallHttp(lparams,
+										function(data){
+											onsuccess(data);
+									   },
+									   function(code,serror){
+											onerror(serror);
+									   });
+	};
+
+
+JS -> 
+
+paramsService.getLanguageClient(
+			//onsuccess
+			function(data) {
+				let languageClient = data;
+				
+
+				$scope.languages.map((lengua, index)=>{
+					if (languageClient == lengua.Code) {
+						lengua.SecretMenu = true
+					}
+				})
+
+
+				// $scope.languages.append(data)
+		},
+		// onerror 
+		function(){}
+		);
+
+		// setInterval(() => {
+		// 	paramsService.setLanguageClient('españoool', function(data) {
+			
+		// 	}, function(serror) {
+				
+		// 	})
+		// }, 1000);
+
+
+
+$("#date-picker-input-1x")[0].value
+
+__________________________________________________________________
+DIRECTIVAS ->grupo de codigo que extiende las capacidades de html (ng-repeat, ng-click...)
+    <h1>{{'PRUEBAAA'}}</h1> entre corchetes escribes javascript
+
+    NG-MODEL (ENLAZAMOS EL INPUT CON UNA VARIABLE Y SE CAMBIA EL VALOR DE LA VARIABLE DESDE EL INPUT)
+     <input type="text" ng-model="nombre"> 
+
+    NG-REPEAT (RECORRER UN ARRAY)
+     <ol>
+         <li ng-repeat="comentario in comentarios">
+            <p>{{comentario.name}}</p>
+            <p>{{comentario.comentario}}</p>
+         </li>
+     </ol>
+
+    NG-CLICK
+html     <button ng-click="agregarComentario()">Boton</button>
+controller.js    $scope.agregarComentario = function(){ alert('comentario añadido')}
+
+	<p ng-class="{claseCreada : 3>2}">holaaaaa</p>
+	<img ng-src="{{lista.img}}">  --> si no ponemos el ng-src sale un error en la consola porque primero la url de src no lo trata como si fuera un javascriipt
+	<ul ng-cloak>  --> Hasta que no carga el angular no se muestra, evitas errores.
+		<li ng-repeat="repo in repos">
+			<p>{{repo.name}}</p>
+		</li>
+	</ul>
+
+	NG-HIDE (SI SE CUMPLE LA CONDICION NO SE MUESTRA EL RESULTADO, LE PONE UN DISPLAY NONE)
+ 		<ol data-ng-hide="comentarios.length <3 ">
+         		<li ng-repeat="comentario in comentarios">
+            			<p>{{comentario.name | mayusculas}}</p>
+            			<p>{{comentario.comentario}}</p>
+         		</li>
+     		</ol>
+	NG-SHOW MUESTRA SI SE CUMPPLE LA CONDICION, ES LO CONTRARIO DE NG-HIDE
+
+
+
+_________PROYECTO___________
+app.js   ponemos la ruta:
+	.when("/prueba", angularAMD.route({
+			templateUrl: function(attrs) {
+				
+					return 'js/views/prueba/prueba.html';
+			
+			},
+			controller: 'primerController',
+			controllerUrl : 'views/prueba/controller'
+		}))
+_________________________________________________________________
+prueba.html (vista)
+<div ng-controller="primerController">    enlazamos el controlador 
+     <h1>{{'Hola ' + nombre}}</h1>
+</div>
+_________________________________________________________________________
+controller.js  (controlador)
+var app = angular.module("pruebaApp", []);  ---> Nombre del modulo
+app.controller("primerController", function($scope){  ---> ponemos nombre al controlador en este caso primerController
+    $scope.nombre = 'David';
+});
+
+_______________________________________________________________________
+
+FILTERS  (se usan para modificar una variable, ponerla a mayuscula, pasarlo a fecha leible, y todo lo que quieras)
+controller.js
+	var app = angular.module("pruebaApp", []);
+	app.filter("mayusculas", function(){
+    	return function(texto){
+        	return texto.toUpperCase()
+    	}
+	})
+	app.controller("primerController", function($scope){
+    	............
+	});
+prueba.html 
+         <p>{{comentario.name | mayusculas}}</p>
+existen filtro ya creaedos,  como <p>{miObjeto | json}</p>   <p>{{pelota | currency:'€'}}</p>
+_______________________________________________________
+
+APPLY( PARA QUE SE ACTUALICE EL VALOR DEL HTML)
+ $scope.clickAlBoton= function() {
+        $scope.$apply(function(){
+            $scope.nombre = 'Bambi'  -> igual sin el apply no se actualiza el valor
+        })
+    }
+setInterval(()=>{
+         $scope.$apply(function(){  --> Con el interval no se qactualizaba el valor sin el apply
+            $scope.contador ++;
+        })
+        
+    },500)
+______________________________________________________________
+
+
+FACTORY (factory)  ->   ES UN OBJETO QUE CREAS Y TIENE VARIOS METODOS Y LO PUEDES UTILIZAR EN CUALQUIER .JS
+
+var app = angular.module("pruebaApp", []);
+app.factory('PruebaServicio', function(){
+    var pruebaServicio = {};
+    pruebaServicio.saludo = 'Hola';
+    pruebaServicio.perros = []
+    pruebaServicio.addPerro = function(newPerro){
+        pruebaServicio.perros.push(newPerro)
+        return pruebaServicio
+    }
+
+    return pruebaServicio
+})
+
+En el controller.js de donde quieras ya lo puedes utilizar, solo hay que importarlo 
+app.controller("primerController", function($scope, PruebaServicio){
+    $scope.animales = PruebaServicio.saludo
+    $scope.anadirPerro=function(){
+        PruebaServicio.addPerro(24)
+    }
+_______________________________________________________________________
+
+SERVICE-----> ES LO MISMO QUE UN FACTORY, PERO NO HAS DE CREAR UN OBJETO, EL SERVICE YA TE LO CREA POR TI, 
+Y PUEDES AÑADIR VARIOS METODOS SI QUIERES. PARA REFERIRTE A EL SE USA THIS.
+
+var app = angular.module("pruebaApp", []);
+app.service('PruebaServicio', function(){
+    
+    this.saludo = 'Hola';
+    this.perros = []
+    this.addPerro = function(newPerro){
+        this.perros.push(newPerro)
+        return pruebaServicio
+    }
+
+   
+})
+
+En el controller.js de donde quieras ya lo puedes utilizar, solo hay que importarlo 
+app.controller("primerController", function($scope, PruebaServicio){
+    $scope.animales = PruebaServicio.saludo
+    $scope.anadirPerro=function(){
+        PruebaServicio.addPerro(24)
+    }
+
+______________________________________________________________________
+
+EN EL ANGULAR MODULE DE APP.JS SE PONEN TODAS LAS IMPOORTACIONES QUE VAYAMOS A UTILIZAR, Y LUEGO EN CADA CONTROLLER
+CUANDO DECLARAS EL ANGULAR.MODULE, SOLO HAS DE PONE EL NOMBRE DEL MODULE PUESTO EN EL APP.JS, NO HACE FALTA PONERLE LAS IMPORTACIONES OTRA VEZ.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
