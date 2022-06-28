@@ -34,3 +34,50 @@ tirar(){
  // HTML DEL APP
  <app-dado #dado1></app-dado>
   <app-dado [numero]="number2"></app-dado>
+  
+  
+ ____________________________________________________________
+ HACER PETICIONES
+ importtamos en el app.module.ts
+ import { HttpClientModule } from '@angular/common/http';
+
+
+y en el ts donde lo vayamosa utilizar importamos:
+import {HttpClient} from '@angular/common/http'
+ constructor(public http: HttpClient){
+
+  }
+
+  getDatos(){
+      this.http.get("https://scratchya.com.ar/vue/datos.php").subscribe(
+    (datos)=> {console.log('datos recibidos:' + datos);
+                this.data= datos},
+    (error)=> (console.log('error:' + error)));
+  }
+  
+  //PODEMOS HACERLO CON UNA ENTIDAD (ENTITIES/ELEMENTO.TS)
+  export class Elemento {
+    codigo: string;
+    descripcion: string;
+    precio: string;
+
+    constructor(){
+        this.codigo = '';
+        this.descripcion= '';
+        this.precio = '';
+    }
+}
+
+//EN EL TS
+import { Elemento } from './entities/elemento';
+data:Elemento[]=[];
+  constructor(public http: HttpClient){
+  }
+  
+getDatos(){
+this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
+(datos:Elemento[])=> {console.log('datos recibidos:' + datos);
+            this.data= datos},
+(error)=> (console.log('error:' + error)));}
+
+
