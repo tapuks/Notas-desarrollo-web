@@ -80,4 +80,30 @@ this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
             this.data= datos},
 (error)=> (console.log('error:' + error)));}
 
+//LA FORMA UENA ES CREAR UN SERVICIO.
+1-ng g s webService
+2- En el web service:
+ data:Elemento[]=[];
+
+  constructor(public http: HttpClient) { 
+
+  }
+
+  getDatos(){
+    this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
+    (datos:Elemento[])=> {console.log('datos recibidos:' + datos);
+                this.data= datos},
+    (error)=> (console.log('error:' + error)));
+
+  }
+ 3- en el app.ts
+ import { WebServiceService } from './web-service.service';
+constructor(public ws: WebServiceService){
+ }
+ 
+4- en el html ahora llamaremos al nombre dervicio con ws delante, que es el nombre que le hemos puesto en el constructor. Por ejemplo:
+<p>ws.data.nombre</p>
+ 
+
+
 
