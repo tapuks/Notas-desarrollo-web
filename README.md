@@ -34,6 +34,21 @@ tirar(){
  // HTML DEL APP
  <app-dado #dado1></app-dado>
   <app-dado [numero]="number2"></app-dado>
+  _________________________________________________
+  VIEWCHILD (CON ESTO ACCEDEMOS A LOS METODOS DE OTRO COMPONENTE)
+  1-EN EL APP.HTML
+  <app-caja #caja></app-caja>
+  2-CAJA.TS
+   hola(){
+    console.log('holaa');
+  }
+  3-APP.TS
+  @ViewChild("caja",null) caja: CajaComponent | undefined;
+  saludo(){
+    this.caja.hola()
+  }
+  
+  
   
   
  ____________________________________________________________
@@ -74,13 +89,18 @@ data:Elemento[]=[];
   constructor(public http: HttpClient){
   }
   
-getDatos(){
-this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
-(datos:Elemento[])=> {console.log('datos recibidos:' + datos);
-            this.data= datos},
-(error)=> (console.log('error:' + error)));}
-
-//LA FORMA UENA ES CREAR UN SERVICIO.
+ getDatos(){
+    try{
+    this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
+    (datos:Elemento[])=> {console.log('datos recibidos:' + datos);
+                this.data= datos},
+    (error)=> (console.log('error:' + error)));
+    }
+    catch (error){
+    }
+  }
+  
+//LA FORMA BUENA ES CREAR UN SERVICIO.
 1-ng g s webService
 2- En el web service:
  data:Elemento[]=[];
@@ -89,13 +109,17 @@ this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
 
   }
 
-  getDatos(){
+   getDatos(){
+    try{
     this.http.get<Elemento[]>("https://scratchya.com.ar/vue/datos.php").subscribe(
     (datos:Elemento[])=> {console.log('datos recibidos:' + datos);
                 this.data= datos},
     (error)=> (console.log('error:' + error)));
-
+    }
+    catch (error){
+    }
   }
+  
  3- en el app.ts
  import { WebServiceService } from './web-service.service';
 constructor(public ws: WebServiceService){
