@@ -128,6 +128,34 @@ constructor(public ws: WebServiceService){
 4- en el html ahora llamaremos al nombre dervicio con ws delante, que es el nombre que le hemos puesto en el constructor. Por ejemplo:
 <p>ws.data.nombre</p>
  
+ ________________________________________
+ ESTO ES UNA PY
+ <p>{{nombre | json}}</p>
+ para crear uno propio que transforme numeros a ingles:
+ 1. ng g p letras
+2. En letras pipe.ts
+
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+  name: 'letras'
+})
+export class LetrasPipe implements PipeTransform {
+  transform(value: any, ...args: any[]): any {
+    switch (value){
+      case 1: return 'one'
+      case 2: return 'two'
+      case 3: return 'three'
+      case 4: return 'four'
+      case 5: return 'five'
+      default:
+        return ''
+    }}} 
+  3. en el html
+  <p>{{4 | letras}}</p>
+ 
+ 
+ 
+ 
 
 
 
