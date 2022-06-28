@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ----INTALAR ANGULAR 
 	npm install -g @angular/cli
 NUEVO PROYECTO
@@ -405,4 +406,6 @@ export class LetrasPipe implements PipeTransform { transform(value: any, ...args
 
 
 
+=======
+>>>>>>> 26267c4b8f8fdc86b228ac47f468b24d645f6169
 
