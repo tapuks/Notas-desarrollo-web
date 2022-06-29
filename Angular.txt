@@ -466,7 +466,28 @@ palabras = ['cocacola', 'cocaina', 'fanta limon', 'fanta naranja', 'cerveza']
 
 ______________________________________________________________________
 
-
+PARA COMPARTIR VARIABLES SE USA LOS SERVICIOS (PUEDES MOSTRAR LAS VARIABLES, MODIFICAR EL VALOR DE ESA VARIABLE DEL SERVICIO DESDE CUALQUIER COMPONENTE).
+export class PersonasServiceService {
+  persona : Persona
+  constructor() {
+    this.persona = new Persona('Jazmin', '73205874Y', 29)
+   }
+}
+EN EL TS DE APP O DE CUALQUIER COMPONENTE YA LO PUEDES UTILIZAR, EN ESTE CASO LO ASIGNAMOS A UNA VARIABLE PERSONA1, PERO PODEMOS HASTA CAMBIAR WS.PERSONA SI QUEREMOS.
+persona1: any
+  constructor(public ws: PersonasServiceService){
+    this.persona1 = ws.persona;
+   }
+   
+   
+   _____________________________________________
+   BUSCAR INFO DE ChangeDetectionStrategy.OnPush
+   ES PARA QUE SEA MAS RAPIDO EL PROGRAMA
+   
+   BUSCAR INFO DE CHANGED.SUBSCRIBE
+   
+   RETACH 
+   DETACH
 
 
 
