@@ -371,7 +371,7 @@ getDatos(){
 	<p>ws.data.nombre</p>
 	
 ___________________________________________________________________
-ESTO ES UNA PY
+ESTO ES UNA PYPE
 
 {{nombre | json}}
 
@@ -390,6 +390,83 @@ export class LetrasPipe implements PipeTransform { transform(value: any, ...args
 		default: return '' }}} 
 3. en el html
 	<p>{{4 | letras}}</p>
+	
+PIPE QUE TE ORDENA UNA LISTA. 
+LISTA A ORDENAR:
+articulos = [{nombre: 'David',edad : 31,totalNominas : 25000},
+              {nombre: 'Jazmin',edad : 29,totalNominas : 20000},
+              {nombre: 'Migue',edad : 30,totalNominas : 28000},
+              {nombre: 'Sergio',edad : 33,totalNominas : 23000}]
+
+
+PIPE: ORDENA LA LISTA POR EDAD
+transform(lista: any[], ...args: any[]): any {
+    if (!lista) return [];
+    lista.sort((a:any, b:any) => {
+      if (a.edad < b.edad) return -1
+      else if  (a.edad == b.edad) return 0
+      else return 1;
+    })
+    return lista
+}}
+
+HTML
+<div *ngFor="let a of articulos | orderby">
+  <p>{{a.nombre}}</p>
+  <p>{{a.edad}}</p>
+  <p>{{a.totalNominas}}</p>
+</div>
+
+
+------------------
+PIPE PARA ORDENAR UN ARRAY EN ORDEN QUE QUERAMOS
+LISTA A ORDENAR:
+articulos = [{nombre: 'David',edad : 31,totalNominas : 25000},
+              {nombre: 'Jazmin',edad : 29,totalNominas : 20000},
+              {nombre: 'Migue',edad : 30,totalNominas : 28000},
+              {nombre: 'Sergio',edad : 33,totalNominas : 23000}]
+PIPE
+transform(lista: any[], ...args: any[]): any {
+    if (!lista) return [];
+    const FieldOrder = args[0]
+    lista.sort((a:any, b:any) => {
+      if (a[FieldOrder] < b[FieldOrder]) return -1
+      else if  (a[FieldOrder] == b[FieldOrder]) return 0
+      else return 1;
+    })
+
+    return lista
+  }
+ 
+HTML
+<div *ngFor="let a of articulos | orderby: 'totalNominas'">
+  <p>{{a.nombre}}</p>
+  <p>{{a.edad}}</p>
+  <p>{{a.totalNominas}}</p>
+</div>
+------------------
+PIPE PARA HACER UN BUSCADOR
+PIPE.TS
+export class SearchPipe implements PipeTransform {
+//CON EL ARGS PASAMOS ARGUMENTOS, EL PRIMER ARGUMENTO ES ARGS[0]
+  transform(value: any[], ...args: any[]): any {
+    let buscador = args[0];
+    return value.filter(a=> a.includes(buscador))
+  }
+}
+
+HTML (LE PASAMOS EL ARGUMENTO BUSCADOR A palabras | nuevo: buscador)
+<input type="text" [(ngModel)]="buscador">
+<div *ngFor="let a of palabras | nuevo: buscador">
+  <p>{{a}}</p>
+</div> 
+TS
+buscador =''
+palabras = ['cocacola', 'cocaina', 'fanta limon', 'fanta naranja', 'cerveza']
+
+______________________________________________________________________
+
+
 
 
 
