@@ -488,6 +488,187 @@ persona1: any
    
    RETACH 
    DETACH
+   
+   
+ ______________________________________________________________
+ FORM CONTROL
+ 
+ APP.MODULE
+ import { ReactiveFormsModule } from '@angular/forms';
+ 
+ TS
+ 
+ import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ValidadorMult5 } from '../validador-mult5';
+
+@Component({
+  selector: 'app-ficha',
+  templateUrl: './ficha.component.html',
+  styleUrls: ['./ficha.component.scss']
+})
+export class FichaComponent implements OnInit {
+  formulario: FormGroup = new FormGroup(
+    {
+      nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      email: new FormControl('',[Validators.email]),
+      mensaje: new FormControl(''),
+      numero: new FormControl(0, ValidadorMult5.multiple5)
+    }
+  )
+  constructor() { }
+  
+  HTML
+  
+  <form [formGroup]="formulario" (ngSubmit)="submit()">
+    <label>Nombre:</label>
+    <input type="text" formControlName="nombre">
+    <span *ngIf="formulario.get('nombre')?.errors?.required">Este campo es obligatorio </span>
+    <span *ngIf="formulario.get('nombre')?.errors?.minlength">Longitud minima 5</span>
+
+    <br>
+    <label>Email:</label>
+    <input type="email" formControlName="email">
+    <span *ngIf="formulario.get('email')?.errors?.email">Email incorrecto </span>
+    <br>
+
+    <label>Mensaje:</label>
+    <textarea formControlName="Mensaje"></textarea>
+    <br>
+    
+
+    <button type="submit">Enviar</button>
+</form>
+
+PUEDES CREAR TU PROPIO VALIDADOR 
+ng g class ValidadorMult5
+import { AbstractControl, ValidationErrors } from "@angular/forms";
+export class ValidadorMult5 {
+    static multiple5(control: AbstractControl): ValidationErrors | null{
+        let n: number = parseInt(control.value);
+        if(n %5 ==0) return null
+            
+        else return {'multiple5': true}
+    }
+}
+
+HTML
+
+<label>Numero:</label>
+    <input type="number" formControlName="numero">
+    <span *ngIf="formulario.get('numero')?.errors?.multiple5">Tiene que ser multiple de 5 </span>
+
+TS
+
+ formulario: FormGroup = new FormGroup(
+    {
+      nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      email: new FormControl('',[Validators.email]),
+      mensaje: new FormControl(''),
+      numero: new FormControl(0, ValidadorMult5.multiple5) //ESTE ES
+    }
+  )
+
+
+
+__________________________________________________
+LA PAGINA SOLO PINTA LOS ELEMENTOS QUE SE VEN, AL HACER SCROLL SE IRAN PINTANDO EL RESTO DE ELEMENTOS, ESTO ES PARA UN MEJOR RENDIMIENTO
+
+ngx-virtual-scroller
+hacer el npm install
+importarlo en el appmodule.ts
+
+HTML
+<virtual-scroller #scroll [items]="lista" style="height: 500px;">
+  <div *ngFor="let a of scroll.viewPortItems ">
+    <div style="height: 20px; border:1px solid black; margin-bottom : 3px">
+        {{a}}
+    </div>
+  </div>
+</virtual-scroller>
+
+
+TS DONDE CREAMOS UNA LISTA ENORME
+lista: string[]= []
+
+  ngOnInit(): void {
+    for (let i =0; i<1000; i++){
+      this.lista.push('elemento' + i)
+  }}
+
+_________________________________________________________
+TRANSLATE A OTRO IDIOMA
+
+NGX TRANSLATE 
+
+HACER LOS INSTALL
+
+EN EL MODULE.TS
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FichaComponent } from './ficha/ficha.component';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    FichaComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    VirtualScrollerModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  }),
+    
+    TranslateHttpLoader
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+SE CREA ASSETS/I118N/ES.JS O ENG.JS  CON {
+    "rs_aceptar": "Aceptar",
+    "rs_cancelar": "Cancelar"
+    ....
+}
+
+EN EL APP.COMPONENT.TS
+
+constructor(private translate: TranslateService){
+    translate.setDefaultLang('es')
+    translate.use('en');
+  }
+  
+EN EL HTML
+
+<button>{{'rs_aceptar' | translate}}</button>
+
+
+
+
 
 
 
