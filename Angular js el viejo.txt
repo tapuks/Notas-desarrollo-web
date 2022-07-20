@@ -9,7 +9,10 @@
 			<p ng-style="{'display':  seeLanguage==false ? 'none' : 'block'}" style="color: white; border: 2px solid white;padding: 20px;">holaaaaaa</p>
 </div>
 
+<td><img style="width:20px;" data-ng-src="{{firstCheck == item.serialnum ? 'images/check-green.PNG' : item.check ? 'images/check.PNG' : !item.check && 'images/check-no.PNG'}}"></td>
+
 <td data-ng-show="(pieza.valueStr[pieza.valueStr.length-3])=='0' && (pieza.valueStr[pieza.valueStr.length-4])=='0' "><img style="width:30px; height: 20px" ng-src="{{pieza.isBill ? 'images/moneda-billete-universal/billete-logo.png': 'images/moneda-billete-universal/moneda-logo.png'}}">{{pieza.valueStr.substring(0, pieza.valueStr.length - 5)}}</td>
+<td data-ng-repeat="v in cashdros[0].info"><button data-ng-click="orderBy($index)" style="background-color: transparent; border: none;">{{3>3 ? pieceValue(v.value, v.currencyCode) : '3'}}</button></td>
 
 
 
