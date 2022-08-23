@@ -45,6 +45,32 @@
 <img ng-src="/images/ico_yes.png" ng-show="enquiry.buyer_email">
 <img ng-src="/images/ico_no.png" ng-show="!enquiry.buyer_email">
 
+____________________________________________________________________
+select options y selected por defecto
+<div>
+    <select data-ng-model="perros.nose" ng-options="perro.value as perro.name for perro in perros.info">
+    </select>
+</div>
+
+js
+ $scope.perros = {};
+
+            $scope.perros.info = [
+                {
+                    'name': 'Bambi',
+                    'value': 1
+                },
+                {
+                    'name': 'Simba',
+                    'value': 2
+                },
+                {
+                    'name': 'Conor',
+                    'value': 3
+                }
+            ];
+            
+            $scope.perros.nose = $scope.perros.info[2].value;  //selected
 
 _________________________________________________________________
 HACER ENDPOINT PHP
