@@ -8,7 +8,7 @@ LEVANTAR SERVIDOR
 LOCAL HOST
 	http://localhost:4200
 NUEVO COMPONENTE
-	ng generate c nuevoComponente
+	ng generate c components/nuevoComponente
 	ng generate c nuevoComponente --skipTests   ->Elimina los documentos de test
 CREAR SERVICE
 	ng g service shared/data
@@ -55,7 +55,7 @@ ________________________________________________________________
 
 //ngFor
 <ul>
-    <li *ngFor="let user of users">
+    <li *ngFor="let user of users; let indice= index">
         {{user.name}}
     </li>
 </ul>
@@ -95,8 +95,55 @@ EVENTOS
 
 <input type="text" (input)="onInput($event)">  //PARA LOS INPUT TIPO TEXT
 
-_______________________PROPS @INPUT (para passar cosas entre el componente padre al hijo)______________________________________________
-es como pasar algo por props, necesitamos un @input() con una variable, esa variable cogera el valor que le pasemos desde el componente padre.
+
+
+
+_____________________________________________________________
+APUNTES:
+_____________________________________________________________
+PARA RECORRER UNA LISTA MOSTRANDO SOLO LOS QUE QUERAMOS (DE ESTA MANERA SI SEXO ES IGUAL A TODOS SE VERAN TODOS, SI ES MASCULINO SE MOSTRARAN SOLO LOS MASCULINOS Y SI ES FEMENINO PUES LOS FEMENINOS).
+<tr *ngFor="let item of empleados">
+                <ng-container *ngIf="sexo=='Todos' || sexo== item.sexo">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.apellido}}</td>
+                    <td>{{item.sexo}}</td>
+                    <td>{{item.salario}}</td>
+                </ng-container>
+            </tr>
+
+-------<ng-container></<ng-container> ES UNA ETIQUETA QUE SE CREA COMO SI FUERA UN DIV, EN EL EJEMPLO DE ARRIBA ESTA PARA PONER UN IF.
+
+-------PARA FILTRAR UN ARRAY PODEMOS USAR FILTER (ESTO RETORNA UN ARRAY Y AL PONERLE EL .LENGTH SABEMOS CUANTOS HAY)
+  countFemenino() {
+    return this.empleados.filter(empleado => empleado.sexo === 'Femenino').length
+  }
+
+PARA PASAR UN VALOR JAVASCRIPT SE LE PONE CORCHETE 
+	<app-suma [num1]="25" [num2]="24" ></app-suma>
+
+-------PARA RESTAR FECHAS
+let today: any = new Date();
+    let date: any = new Date(2022,12,28);
+    // if (today > date)
+    var diferencia = date - today
+    let days = diferencia / (1000 * 3600 * 24)
+
+------PARA BORRAR SIN PASAR EL INDEX, PASANDO EL OBJETO ENTERO
+delete(producto: Producto) {
+    let position = this.productos.indexOf(producto)
+    this.productos.splice(position, 1)
+  }
+
+
+
+
+
+____________________________________________________________
+
+_______________________PROPS @INPUT (para passar cosas entre el componente padreal hijo)_____________________________
+
+es como pasar algo por props, necesitamos un @input() en el componente hijo con una variable, esa variable cogera el valor que le pasemos desde el componente padre.
 importar Input de @angular/core
 
 export class CalculadoraComponent implements OnInit {
@@ -110,11 +157,10 @@ PODEMOS CAMBIAR EL NOMBRE DEL PARAMETRO
   @Input('sms') mensaje: string
 <app-calculadora sms="Mensaje pasado por @input"></app-calculadora>
 
-PARA PASAR UN VALOR JAVASCRIPT SE LE PONE CORCHETE 
-	<app-suma [num1]="25" [num2]="24" ></app-suma>
+
 
 _______________________PROPS @OUTPUT (para pasar cosas entre componentes de hijo a padre)_______________________________
-importar Output, EventEmitter de @angular/core
+importar Output, EventEmitter de @angular/core EN EL HIJO
 export class CalculadoraComponent implements OnInit {
 
     @Output() alertaPulsada: EventEmitter<string>
@@ -187,11 +233,13 @@ export class Producto {
   nombre: string;
   imagen: string;
   precio: number;
+  like: boolean;
 
   constructor(pNombre: string, Pimagen: string, pPrecio: number) {
     this.nombre=pNombre
     this.imagen=Pimagen;
     this.precio=pPrecio;
+    this.like = false;
   }
 }
 
