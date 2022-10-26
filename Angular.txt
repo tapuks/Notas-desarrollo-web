@@ -135,7 +135,18 @@ delete(producto: Producto) {
     this.productos.splice(position, 1)
   }
 
+------PARA PONER IMAGEN:
+<img [src]="producto.imgUrl">
+------PUEDES INSTANCIAR LOS OBJETOS ASI:
+constructor(
+	this.arrayObjetos=[new Obj1('David', 'Berdiell'), new Obj2('Jazmin', 'Correa')]
+)
+--------
+HAY A VECES QUE EL HTML NO DEJA PONER LAS PROPIEDADES DE UN OBJETO, ESO ES PORQUE TODAVIA NO LAS TIENE HASTA QUE LAS RECIBE, SE SOLUCIONA PONIENDO ? POR EJEMPLO <p>casa?.numero</p>
 
+
+HAY A VECES QUE TIENES DE DECLARAR EL TIPO DE CADA COSA PORQUE SI NO DA ERRROR, ESO ES PORQUE ESTA PUESTO EL MODO ESTRICTO, PARA QUITARLO VAMOS EL DOCUMENTO 
+tsconfig.json y ponemos a false la pripiedad strict
 
 
 
@@ -179,7 +190,7 @@ onClick2() {
       console.log($event);
    }
 }
-____________________PARA PODER MODIFICAR UNA VARIABLE RENDERIZADA DESDE UN INPUT _______________________
+____________________PARA PODER MODIFICAR UNA VARIABLE RENDERIZADA DESDE UN INPUT, NO @INPUT _______________________
 importamos FormsModule
 //en app.module.ts    import { FormsModule } from '@angular/forms';  y en el array de imports ponerlo  imports: [BrowserModule,FormsModule],
 // en el html <input type="text" [(ngModel)]="campoTexto">
@@ -191,6 +202,7 @@ importamos FormsModule
 __________________________________DIRECTIVAS__________________________________________
 <p [ngStyle]="{color:'red', fontSize:'24px'}"> Ponemos estilos.</p>
 <p [ngClass]="{semaforo: true, redondo: false}">Mostramos las clases que queramos.</p>
+<div class="personaje" [ngClass]="{vivo: item.status == 'Alive', muerto: item.status =='Dead'}">
 <p *ngIf="true">Si es true se muestra, si es false no.</p>
 
 <p *ngIf="false; else elseBlock">Si es true se muestra, si es false se muestra el del else</p>
@@ -222,6 +234,31 @@ ng generate directive directivas/Subrayado --skipTests
    		}
 	}
 Luego lo usas de esta manera: <h1 appSubrayado>Caja Registradora</h1>
+
+//Para crear una directiva que escucha los eventos, como mouseover, mouseout...
+import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
+@Directive({
+  selector: '[appColor]'
+})
+export class ColorDirective {
+
+  constructor(private elem: ElementRef, private render: Renderer2) { }
+
+  @HostListener('mouseover') onHover() {
+    this.render.setStyle(this.elem.nativeElement, 'color', 'blue')
+  }
+
+}
+
+Tambien puedes hacer que se active una clase con la directiva, usando HostBinding, lo importas.
+ @HostBinding('class') isHover:string=''
+
+  constructor(private elem: ElementRef, private render: Renderer2) { }
+
+  @HostListener('mouseover') onHover() {
+    this.render.setStyle(this.elem.nativeElement, 'color', 'blue');
+    this.isHover = 'hover'  // De esta manera creas en el css una clase .hover y le pones un background o lo que quieras
+  }
 __________________________________________
 //ternario  
     <button (click)="onClick(tarea)">{{tarea.completa? 'INCOMPLETA' : 'COMPLETA'}}</button>
@@ -244,7 +281,7 @@ export class Producto {
 }
 
 _____________________RUTAS_________________________
-//en app-routing.module.ts
+//en app-routing.module.ts dentro de la const routes que aparece arriba.
 const routes: Routes = [
   {path: '', pathMatch:'full', component: Home},
   {path: 'informacion', component: InfoComponent},
@@ -256,6 +293,9 @@ const routes: Routes = [
 PARA IR A UNA RUTA DESDE UN ENLACE, NO PUEDES HACER CON <A HREF=... PORQUE TE RECARGA LA PAGINA.
 SE HACE DE ESTA MANERA.
   <a [routerLink]="['/informacion']">Informacion</a>
+
+CON ROUTERLINACTIVE LE PONEMOS UNA CLASE CSS A ESE LINK. SI TENEMOS UN MENU CON VARIOS ENLACES Y AL QUE ESTE ACTIVA LE PONEMOS UNA CLASE CON UN BACKGROUN RED POR EJEMPLO
+EL ENLACE QUE HAIGAMOS APRETADO ESTARA EN ROJO.
   <a [routerLink]="['/informacion']" routerLinkActive="activa">Informacion</a>  //Con routerLinkActive le pones una clase al enlace cuando esta en esa ruta
 
 //DESDE UN BOTON.
@@ -271,7 +311,7 @@ en el ts
 PARA RECOGER EN NUMERO DE UN ID PASADO POR LA RUTA (IGUAL QUE USE PARAMS):
 
 declaramos la ruta  {path: 'empleado/:id', component: DetalleEmpleadoComponent},
-//en el .ts de empleado 
+//en el .ts del componente empleado 
 	constructor(private activatedRoute: ActivatedRoute) {}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -279,12 +319,12 @@ declaramos la ruta  {path: 'empleado/:id', component: DetalleEmpleadoComponent},
     })
   }
 
-PARA PONER UNA RUTA DENTRO DE OTRA YA. (CHILDREN)
+PARA PONER UNA RUTA DENTRO DE OTRA YA. (CHILDREN) POR EJEMPLO SERIA localhost:2400/empleado/5/info
 //En las rutas {path: 'empleado/:id', component: DetalleEmpleadoComponent, children: [
     {path: 'modificar', component: ModificarComponent},
     {path: 'info', component: InfoComponent}
   ]}
-//En el html de ese componente (empleado) hay que poner:   <router-outlet></router-outlet>
+//IMPORTANTE En el html de ese componente (empleado) hay que poner:   <router-outlet></router-outlet>
 
 Para recoger el id pasado por la ruta desde el padre seria 
 constructor(private activatedRoute: ActivatedRoute) {}
@@ -293,6 +333,8 @@ constructor(private activatedRoute: ActivatedRoute) {}
       this.empleadoId = params["id"]
     })
   }
+
+CON ROUTER GUARDS BLOQUEAMOS EL PODER IR A UNA RUTA. VIDEO 78 DE LA BIBLIA DE ANGULAR
 
 _______________________SERVICES__________________________
 1- ng generate service services/Personas --skipTests
@@ -365,25 +407,193 @@ VIEWCHILD (CON ESTO ACCEDEMOS A LOS METODOS DE OTRO COMPONENTE)
 3-APP.TS @ViewChild("caja",null) caja: CajaComponent | undefined; saludo(){ this.caja.hola() }
 
 __________________________________________________________
+PROMESAS
+
+CREAMOS UNA PROMESA EN EL SERVICE
+
+addConor(): Promise<string[]>{
+    const prom = new Promise<string[]>((resolve, reject) => {
+      const arrTemp = this.perros;
+      arrTemp.push('conor')
+      resolve(arrTemp)
+    })
+    return prom;
+  }
+
+----y en el ts la llamamos pulsando un boton, como nos llega una promesa tenemos de  poner then y catch
+
+onClickConor() {
+    this.service.addConor()
+      .then(arrTemp=> console.log(arrTemp))
+      .catch(error => console.log(error))
+  }
+
+---La forma moderna de resolver la promesa es con async await
+
+ async onClickConor() {
+    try {
+      const response = await this.ser.addConor()
+      console.log(response)	
+    }
+    catch(error) {
+      console.log(error)
+    }
+
+OTRO EJEMPLO EN EL SERVICE 
+  getAllPromise(): Promise<Escritor[]>{
+    return new Promise<Escritor[]>((resolve, reject) => {
+      resolve(ESCRITORES)
+    })
+  }
+
+EN EL TS quitar el void de ngOninit y poner async
+
+async ngOnInit(){
+	try{
+     this.listaEscritores= await this.promesas.getAllPromise()
+	}
+catch(error){
+	console.log(error)
+  	}
+}
+
+EN EL SERVICE
+getPais(pais:string): Promise<Escritor[]>{
+    return new Promise<Escritor[]>((resolve, reject) => {
+      resolve(ESCRITORES.filter(escritor=> escritor.pais == pais))
+    })
+  }
+EN EL TS
+async changePais($event: any) {
+    if ($event.target.value == 'todos') {
+      this.listaEscritores = await this.promesas.getAllPromise()
+    } else {
+    this.listaEscritores = await this.promesas.getPais($event.target.value)
+      
+    }
+  }
+EN EL TS USANDO EL ID COGIDO DE LA URL CON PARAMS
+   ngOnInit() {
+    this.activatedRoute.params.subscribe(async params => {
+      console.log(params['id'])
+      this.escritor = await this.promesaService.getById(parseInt(params['id']))
+    })
+  }
+
+__________________________________________________________
 HACER PETICIONES importamos en el app.module.ts import { HttpClientModule } from '@angular/common/http';
 
 y en el ts donde lo vayamosa utilizar importamos: 
 import {HttpClient} from '@angular/common/http' 
 constructor(public http: HttpClient){}
 
-getDatos(){ this.http.get("https://scratchya.com.ar/vue/datos.php").subscribe( 
+PODEMOS HACERLO CON PROMESA:
+GET
+getAll(): Promise<any>{
+  return this.HttpClient.get<any>(this.url).toPromise()
+}
+EN EL TS DEL COMPONENTE IMPORTAMOS EN EL CONSTRUCTOR EL SERVICE CON PRIVATE WEBSERVICE:WEBSERVICE
+Y LLAMAMOS A FUNCION DEL GET PARA TRAER LA PROMESA:
+constructor(private web: WebservicesService) { }
+  ngOnInit(){
+    this.web.getAll()
+      .then(response => {
+      console.log(response)
+    }).catch(error => console.log(error))
+  }
+
+
+EJEMPLO GET BYID
+EN EL SERVICES 
+getById(id:number): Promise<any>{
+  return this.HttpClient.get<any>(`${this.url}/${id}`).toPromise()
+}
+EN EL TS DEL COMPONENTE 
+// CON PROMESA
+ ngOnInit(){
+    this.web.getById(3)
+      .then(data => console.log('data', data))
+      .catch(error=> console.log(error))
+  }
+// CON ASYNC AWAIT 
+async onClick(id: number) {
+    try{
+	const response=await this.web.getById(id)
+	console.log(response)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+TABIEN PODEMOS HACERLO CON UN OBSERVABLE ENVEZDE UNA PROMESA
+getDatos(){ this.HttpClient.get("https://scratchya.com.ar/vue/datos.php").subscribe( 
 (datos)=> {console.log('datos recibidos:' + datos); 
 	this.data= datos}, 
 	(error)=> (console.log('error:' + error))); }
+_____
 
-//PODEMOS HACERLO CON UNA ENTIDAD (ENTITIES/ELEMENTO.TS) 
+//POST 
+EN EL SERVICE
+create({title, body, id}): Promise<any>{
+    const bodyRequest = { title, body, id }
+    return this.HttpClient.post<any>(this.url, bodyRequest).toPromise()
+  }
+EN EL TS DEL COMPONENTE AL PULSAR UN BOTON LLAMAMOS A LA FUNCIO ONNEW
+ async onNew() {
+    try {
+      const response = await this.web.create({title: 'foo',body: 'bar',id: 5})
+      console.log(response)
+    }catch (error) { console.log(error) }
+  }
+}
+
+//PUT (ACTUALIZAR)
+EN EL SERVICE
+actualizarPut({id, title, body, userId}): Promise<any>{
+    const bodyRequest = { id, title, body, userId }
+    return this.HttpClient.put<any>(`${this.url}/${id}`, bodyRequest).toPromise()
+  }
+EN EL TS DEL COMPONENTE FUNCION QUE SE ACTIVA AL PULSAR UN BOTON
+ onActualizar(){
+    this.web.actualizarPut({id: 1,title: 'foo',body: 'bar',userId: 1,})
+      .then(data => console.log('data', data))
+      .catch(error=> console.log(error))
+}
+
+//DELETE
+EN EL SERVICE
+  delete(id): Promise<any>{
+    return this.HttpClient.delete<any>(`${this.url}/${id}`,).toPromise()
+  }
+EN EL TS DEL COMPONENTE
+onDelete(id) {
+    this.web.delete(id)
+      .then(response => console.log(response))
+      .catch(error=> console.log(error))
+  }
+
+A VECES NOS PODEN QUE ENVIEMOS UN HEADER, NORMALMENTE CUANTO NECESITAMOS LOGEARNOS Y ENVIAR UN TOKEN.
+NECESITAMOS IMPORTAR HTTPHEADERS EN EL SERVICES. import { HttpClient, HttpHeaders } from '@angular/common/http';
+Y DENTRO DE LA FUNCION DEL POST PASAR LO QUE NOS PIDEN POR EJEMPLO EN ESTE POST  
+ create({ title, body, id }): Promise<any>{
+    const bodyRequest = { title, body, id }
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-type': 'application/json; charset=UTF-8'
+      })
+    }
+    return this.HttpClient.post(this.url, bodyRequest, httpOptions).toPromise() // LO PASAMOS COMO ULTIMO PARAMETRO 
+  }
+
+
+//PODEMOS HACERLO CON UNA ENTIDAD O MODELO (ENTITIES/ELEMENTO.TS) 
 export class Elemento { codigo: string; descripcion: string; precio: string;
 
 constructor(){
     this.codigo = '';
     this.descripcion= '';
     this.precio = '';
-}
 }
 
 //EN EL TS import { Elemento } from './entities/elemento'; 
@@ -417,14 +627,78 @@ getDatos(){
 
 	5- en el html ahora llamaremos al nombre dervicio con ws delante, que es el nombre que le hemos puesto en el 		constructor. Por ejemplo:
 	<p>ws.data.nombre</p>
+___________________________________________________________________
+PAGINACION EN APIS QUE TE DEVUELVEN EL NUMERO DE PAGINA, EJEMPLO EN GITHUB RICKY MORTY
+
 	
 ___________________________________________________________________
-ESTO ES UNA PYPE
+PIPE
+SI VAMOS A TRABAJAR CON DIAS, MONEDAS Y DEMAS EN ESPAÑOL ESTA BIEN PONERLESO A NUESTRO PROYECTO.
+PARA ESO IMPORTAMOS EN MODULE.TS LO SIGUIENTE:
+import { LOCALE_ID, NgModule } from '@angular/core'; //LOCALE_ID
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import locales from '@angular/common/locales/es' //LOCALES
+import { registerLocaleData } from '@angular/common'; //REGISTERLOCALE DATA
 
+registerLocaleData(locales); //LO INICIAMOS AQUI
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [{
+    provide:LOCALE_ID, useValue:'es-ES'  //LO METEMOS AQUI EN EL PROVIDE.
+  }],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+-------
+
+ESTO ES UNA PYPE SIREVE PARA VER EN EL HTML UN OBJETO YA QUE LO PASA A STRING
 {{nombre | json}}
+------
+CURRENCY
+CON ESTE PIPE TENEMOS UN NUMERO Y SE LO MOSTRAMOS EN EL HTML DE LA MANERA QUE QUERAMOS, REDONDEANDOLO O COMO SEA SIN TOCAR EL VALOR ORIGINAL
+<p>{{ precio | currency: "EUR":"symbol":"1.2-2" }}</p> 1(1 numero como minimo parte entera).2(2 numeros como minimo en la decimal)-2(dos numeros como maximo en la decimal)
+-------
+DECIMAL-CON ESTE PIPE MOSTRAMOS LOS DECIMALES QUE QUEREMOS A UN NUMERO EL FORMATO ES COMO EL DE CURRENCY
+precio = 555,123456789
+<p>{{ precio | number:"1.2-2" }}</p> minimo entero.minimo decimal-maximo decimal (se vera  555,12)
+------
+FECHA
+fecha = new Date();
+<p>{{ fecha | date: "dd-LLLL-yyyy HH:mm.ss" }}</p>  21-septiembre-2022 11:29.56
+------
+<p>{{ frase | lowercase }}</p>MINUSCULAS
+<p>{{ frase | uppercase }}</p>MAYUSCULAS
+<p>{{ frase | titlecase }}</p>MAYUSCULA EL PRINCIPIO DE CADA PALABRA
+-----
+CON EL PIPE SLICE LE DECIMOS EN UN NGFOR EN QUE POSICION EMPIEZA Y EN QUE POSICION ACABA DEL ARRAY
+numeros = [10,20,30,40,50,60,70]
+<p *ngFor="let item of numeros | slice: 0:2">{{ item }}</p> SE VERAN EL 10 Y EL 20
+TAMBIEN SIRVE PARA PPONERLO EN UN STRING Y SOLO MOSTRAR LOS CARACTERES QUE QUERAMOS
+palabra = 'bambi'
+<p>{{palabra | slice :1.3}}  amb
+-----
+PIPE ASYNC CON EL RESOLVEMOS UNA PROMESA DESDE EL HTML
+creamos la promesa en el service
+y en el .ts del componente guardamos en una variable la llamada a la promesa;
+this.prom = this.ws.getAll()  DE ESTA MANERA NO LA RESOLVEMOS.
+EN EL HTML YA LA PODEMOS USAR CON PIPE ASYNC
+<p>Promesa: {{prom | async}}</p> nos lo dara en formato object objetc, pero si esto mismo lo hacemos en el ngfor podremos recorrer el resultado
+
+
+
 
 para crear uno propio que transforme numeros a ingles: 
-1. ng g p letras 
+1. ng g p pipes/letras 
 2. En letras pipe.ts
 import { Pipe, PipeTransform } from '@angular/core'; 
 @Pipe({ name: 'letras' }) 
@@ -539,14 +813,14 @@ persona1: any
    
    
  ______________________________________________________________
- FORM CONTROL
+ FORM CONTROL (FORMULARIO)
+
+IMPORTAR EN APP.MODULE
+import { ReactiveFormsModule } from '@angular/forms';
  
- APP.MODULE
- import { ReactiveFormsModule } from '@angular/forms';
+TS DEL COMPONENTE DEL FORMULARIO
  
- TS
- 
- import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidadorMult5 } from '../validador-mult5';
 
@@ -559,8 +833,8 @@ export class FichaComponent implements OnInit {
   formulario: FormGroup = new FormGroup(
     {
       nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      email: new FormControl('',[Validators.email]),
-      mensaje: new FormControl(''),
+      email: new FormControl('',[Validators.email]), // validators.email valida el email pero no bien, lo mejor es poner email: new FormControl('', [Validators.pattern(y aqui poner una expresion regular de email)])
+      mensaje: new FormControl('', [Validators.required]),
       numero: new FormControl(0, ValidadorMult5.multiple5)
     }
   )
@@ -587,8 +861,32 @@ export class FichaComponent implements OnInit {
 
     <button type="submit">Enviar</button>
 </form>
+<p>{{ formulario.value | json }}</p>  // con esto vemos lo que vamos escribiendo en el html
+//esto son las propiedades del formulario, no las de cada input,de esta manera las vemos en el htm, que sabiendolas podemos hacer cualquier cosa como poner el boton submit en disabled, poner un ngif y demas...
+<p>{{formulario.valid}}</p> // es valido
+<p>{{formulario.invalid}}</p> // no es valido
+<p>{{formulario.dirty}}</p> // se pone a true cuando escribes en algun campo
+<p>{{formulario.untouched}}</p>// se pone en false en cuanto sales de cualquier input
+//Para acceder a las propiedades de cada input y poder por ejemplo darle una clase dependiendo de como este se hace con:
+<p>{{formulario.controls.apellido.valid o .dirty o .untouched}}</p>
 
-PUEDES CREAR TU PROPIO VALIDADOR 
+
+CADA INPUT TIENE UNAS CLASES COMO ng-dirty ng-touched ng-valid CON ESTAS PUEDES DARLES ESTILOS PARA QUE SE MARQUE COMO VALIDO EN VERDE E INVALIDO EN ROJO.
+LOS ESTILOS SERIAN (CSS):
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+input:focus { //este estilo no se si hace falta
+    outline: none;
+}
+
+
+TAMBIEN PUEDES CREAR TU PROPIO VALIDADOR GENERANDO UNA CLASE Y LUEGO IMPORTANDOLO EN EL COMPONENTE QUE QUIERAS O CREANDO EL VALIDADOR EN EL TS DEL MISMO COMPONENTE, SI LA VALIDACION ES
+CORRECTA, DEVOLVEREMOS NULL SI NO RETORNAMOS UN OBJETO CON EL NOMBRE DEL VALIDADOR: ALGUNA INFO PARA QUE LA PODAMOS VER EN EL HTML SI NOS INTERESA 
+EJEMPLO VALIDACION MULTIPLO DE 5:
 ng g class ValidadorMult5
 import { AbstractControl, ValidationErrors } from "@angular/forms";
 export class ValidadorMult5 {
@@ -617,6 +915,54 @@ TS
     }
   )
 
+EJEMPLO VALIDADOR EDAD ENTRE 18-65
+
+constructor() {
+     this.formulario = new FormGroup({
+       nombre: new FormControl('', [Validators.minLength(6)]),
+       edad: new FormControl(null, [this.validateEdad18_65]),
+       email: new FormControl('')
+  })}
+
+ validateEdad18_65(FormControl:any) {
+    const value = FormControl.value;
+    if (value >= 18 && value <= 65) {
+      return null
+    }
+    return {'validateEdad18_65': [65,18] };
+  }
+
+PARA MOSRTRAR LOS ERRORES DE CADA INPUT EN EL HTML:
+Creamos una clase en el css:
+.error {
+    color: tomato;
+    font-size: 12px;
+}
+
+EN EL HTML CREAMOS UN DIV DEBAJO DE CADA INPUT DONDE SE VERA EL ERROR
+ <div class="formgroup">
+    <label>Nommbre</label>
+    <input type="text" formControlName="nombre" />
+  </div>
+  <div
+    class="error" *ngIf="formulario.get('nombre')?.errors?.['required'] && formulario.get('nombre')?.['touched']">
+    	El campo es requerido
+  </div>
+ <div
+    class="error" *ngIf="formulario.get('nombre')?.errors?.['minlength'] && formulario.get('nombre')?.['touched']">
+    El campo debe tener {{formulario.get('nombre')?.errors?.['minlength']?.['requiredLength']}} digitos almenos  //De esta manera ya te sale el numero que habiamos puesto en el minlegth en el .ts
+  </div>
+<p>{{ formulario.controls["nombre"].errors | json }}</p> //ASI VEMOS LAS PROPIEDADES DEL ERRORS
+
+
+PODEMOS PONER UN OBSERVABLE EN EL INPUT DEL FORMULARIO QUE QUERAMOS PARA DARNOS CUENTA DE QUE CAMBIA, SE HARIA DE LA SIGUIENTE MANERA:
+EN EL ONINIT NOS SUSBRIBIMOS A UN OBSERVABLE Y CON EL DEBOUNCETIME LE DECIMOS QUE NOS AVISE CUANDO ACABE DE ESCRIBIR QUE PASE MEDIO SEGUNDO.
+CON ESO PODRIAMOS VALIDAR TRAYENDO DATOS DE LA ASE DE DATOS SI EL EMAIL YA ESTA EN USO O CUALQUER COSA
+ngOnInit() {
+    this.formulario.controls['email'].valueChanges.pipe(debounceTime(500)).subscribe(value => {
+      console.log('value', value)
+    })
+  }
 
 
 __________________________________________________

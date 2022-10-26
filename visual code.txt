@@ -3,8 +3,16 @@ better comments -> da color a los comentarios
 error lens -> te dice el error en el codigo
 prettier
 
+<<<<<<< HEAD
+SETTINGS:
+Word Wrap ON
+format on save marcado
+format on paste marcado
+Wrap Line Length estaba a 120 pues ponerlo a 0
+=======
 
 settings-
 buscamos wrap- word wrap on, wrap line legth 0
 buscamos format- on paste true, on save true, on type true
 
+>>>>>>> 91c4e99929e869d3ac93e880f3acd129d22500fe
