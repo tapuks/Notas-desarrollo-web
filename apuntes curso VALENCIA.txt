@@ -1,0 +1,632 @@
+BUCLE FOR CON DOS CONDICIONALES:
+for(let i =0; i<10 || i<3; i++){}
+
+HACER UNA COPIA DE UN OBJETO O ARRAY, lo mejor es hacerlo con el espreat operator por que los objetos funcionan como referencia y son mutables
+let objeto1 = {name:'david'}
+let objeto2= {...objeto1}
+si lo hacemos asi:
+let obj2 = obj1 se hace una copia a la referencia del objeto, pero no es una copia bien hecha, si cambiamos un valor de obj1 se cambiaria en obj2 tambien, porque se guarda de la memoria
+
+SWITCH CON CONDICIONES
+switch(true){
+case 2>1: 'hola'; break;
+}
+
+DOCTYPE ES PARA DECIR LA VERSION DE HTML QUE TENEMOS
+
+REDONDEAR PARA ARRIBA O PARA ABAJO CON ROUND()
+
+
+
+SI RECIBE EL PARAMETRO HACE UNA COSA SI NO OTRA
+function showMessage(message){
+	return message || 'valorpordefecto'
+}
+
+function showMessage(message='valorpordefecto'){
+	return message
+}
+
+function f (a, ...b){
+en b se guarda un array con todos los parametro que pases
+}
+
+ARROW FUNCTION
+const resultado=(x) => 3*x
+resultado(5)  //15
+
+const calcula=(num1, num2) => num1+num2;
+
+//PARA PASAR EN UNA FUNCION UNA SERIE DE PARAMETROS Y NO SABES CUANTOS TE VAN A VENIR, SE PASA ...parametros, de esta manera se guardan en un array y lo puedes recorrer.
+const suma = (...array)=> array.reduce(function(valorAnterior, valorActual,){
+  return valorAnterior+valorActual
+});
+
+const suma2= (...a)=> {
+    let total = 0;
+    for(let i=0; i< a.length; i++){
+        total = total + a[i];
+    }
+        return total
+}
+
+SI HACES UN CONSOLE.LOG DE ARGUMENTS.LENGTH DENTRO DE UNA FUNCION TE DEVUELVE LOS PARAMETROS QUE HAS PASADO.
+function loQUesea(){
+    if (arguments.length>=1){
+        return 'sii'
+    }
+    else return 'no';
+}
+
+FOR OF NO DEVUELVE NADA
+
+CREAR UN CONSTRUCTOR EN JAVASCRIPT DE LA MANERA ANTIGUA
+const Person = function(nombre, edad){
+        this.name=nombre;
+        this.age = edad;
+    
+}
+let persona = new Person('David', 31)
+CREAR UN METODO PARA EL MODELO PERSONA
+Person.prototype.show=function(){return this.name}
+persona.show()
+
+LA FORMA MODERNA DE CREAR UN MODELO CONSTRUCTOR PARA INSTANCIAR UN OBJETO ES ASI:
+class Perro{
+    constructor(name, age){
+        this.name=name;
+        this.age=age;
+    }
+}
+CREAR UN METODO PARA EL MODELO PERRO
+Perro.prototype.show=function(){return this.name}
+perro.show()
+
+FILTER DEVUELVEN UN ARRAY, REDUCE NO.
+
+MAP
+
+a=[2,4,6,8]
+let listaDoble = a.map(x=>2*x)
+let listaMasIndice = a.map((x,ind)=>2+ind)
+a.map(elemento, indice, array)=> array) retorna 4 listas [2,4,6,8],[2,4,6,8],[2,4,6,8],[2,4,6,8]
+
+FILTER lA FUNCION QUE PASAMOS DENTRO DEL FILTER(CALLBACK) TIENE QUE DEVOLVER TRUE O FALSE
+
+a.filter(x=> x>2) retorna [4,6,8]
+
+FIND DEVUELVE EL PRIMER ELEMENTO QUE SEA TRUE
+
+const esPar =  a.find(x=> x%2===0) retornara 2
+const primerIndice = array.find((el, ind)=>ind)
+const ultimoIndiceMayor6 = array.reverse.find(x=> x>6)
+const ultimoIndiceMayor6 = array.findLasst(x=> x>6); MEJOR DE ESTA FORMA PORQUE REVERSE TE MODIFICA EL ARRAY
+
+DEVOLVER PRIMER ELEMENTO QUE TIENE EL MISMO TIPO QUE EL SIGUIENTE
+const matriz = [33,'aaa', {}, 'aa', 33, 56];
+let primerTipo=matriz.find((elem, ind, array)=>{
+    if (typeof elem == typeof array[ind-1]){
+        return true;
+    }
+})
+
+(...a) los tres pountos depende como los usas, unas veces  junta los parametros que pasamos a la funcion y crea un array y otras desparrama (saca los datos del array)
+
+
+RECORRER OBJETO
+const object = {'p1':22, 'p2':10}
+object.keys(object).forEach(p=> console.log(object[p]))
+
+for (let prop of Object.keys(object)){
+    console.log(object[prop])
+}
+
+REDUCE
+
+const a = [1,2,3,14]
+a.reduce((acum, elem)=> acum + elem, 10)    //,10 es el valor inicial para acum
+
+a.reduce((result, elem)=> {
+    console.log('result', result);
+    console.log('elem', elem);
+    return result + elem
+})
+
+const players= [
+  {
+  name:'jordan',
+  rating: 10
+  },
+  {
+  name:'lebron',
+  rating: 7
+  } 
+  ]
+PLAYERS CON RAITIN MAYOR A 8 Y SU NOMBRE EN MAYUSCULA
+FILTER Y MAP
+const namesUppercaseOver8=players.filter(p=> p.rating>8).map(x=>x.name.toUpperCase());
+
+REDUCE
+  const namesUppercaseOver8=players.reduce((names, player)=> {
+    if (player.rating >8){
+      names.push(player.name.toUpperCase())
+    }
+    return names
+  }, []) // el corchete es el primer valor que tendra el primer parametro la primera iteracion, si no le ponemos este primer valor que es opcional, entonces el perimer valor del parametro tendra la primera posicion del array y el segundo parametro tendra la segunda posicion
+
+_________
+CREAR OBJETO A PARTIR DE UN ARRAY Y QUE DEVUELVA CUANTOS HAY DE CADA
+const fruitBasket = ['banana', 'cherry', 'orange', 'apple', 'cherry', 'orange', 'apple', 'banana', 'cherry', 'orange', 'fig' ];
+
+const fruitCount=fruitBasket.reduce((tally,fruit)=>{
+    tally[fruit] = (tally[fruit] ||0)+ 1
+    // o con ternaria      tally[fruit] = tally[fruit] ? tally[fruit]+1 : 1
+
+
+    return tally
+},{})
+
+___________________________________________________________
+PROMESAS (Devuelbes o resolve o reject pero no las dos)
+let myPromise = new Promise(function(resolve, reject) {
+    setTimeout(()=> {
+        console.log('Promise weill be fulfilled')
+        if (3>3){
+        resolve('bien')
+        } else {
+        reject('mal')
+        }
+    }, 0)
+})
+
+console.log("Hello");
+myPromise.then((data)=> console.log('Run if promise is fulfilled', data))
+         .catch((error)=> console.error('Run if promise is rejected', error))
+
+console.log('adios');
+
+CON PROMISE ALL, CREAMOS TRES PROMESAS Y PODEMOS RESOLVERLAS, SI SE RESUELVEN BIEN TODAS(RESOLVE) SE LANZA UNA COSA Y SI NO CATCH
+//PROMISE.ALL()
+
+
+Promise.all([promesa1, promesa2, promesa3]).then((resolve) => alert('Se han cumplido las 3 promesas'))
+CON PROMISE RACE SI FALLA UNA DE LAS PROMESAS CON EL CTACH PODEMOS SALTAR EL ERROR
+
+Promise.race([promesa1, promesa2, promesa3]).catch((error)=>alert("No hay cine!!"));
+CON PROMISE RACE OBTENEMOS EL RESOLVE SOLO DE LA PRIMERA PROMESA (promesa1) Y VEMOS SU RESOLVE. 
+Promise.race([promesa1, promesa2, promesa3]).then((resolve)=>{
+  if(resolve === "Poner la mesa"){
+    alert('Podemos sentarnos a cenar')
+  }
+});
+
+APUNTE:
+tanto el then como el catch cuando ejecutan la funcion devuelven una promesa cumplida con lo que devuelva la funcion
+Cuando al then y el catch no se ejecuta la funcion que tienen , devuelven la misma promesa
+
+
+FUNCION AUTOINVOCABLE
+(function () {
+    console.log(23)
+})();
+
+
+ASI NO NOS DEJA ACCEDER A LA PROPIEDAD CON EL THIS, PORQUE ESTA DENTRO DE OTRA FUNCION (SETtIMEOUT Y EL THIS APUNTA A OTRO SITIO)
+const object3 = {prop: 'value', printProperty: function() { setTimeout( function(){
+    console.log('prop=' +this.prop)},1000)}}
+
+PARA CPRREGIR ESTO
+const object3 = {prop: 'value', printProperty: function(){
+	const self = this
+  setTimeout( function(){
+    console.log('prop=' +self.prop)},1000)}}}
+
+MAS FACIL ES CORREGIRLO CON FUNCION ARROW PORQUE NO TIENE THIS, ENTONCES APUNTA AL OBJETO
+const object3 = {prop: 'value', printProperty: function() { setTimeout( ()=>console.log('prop=' +this.prop),1000}}
+____________________________________________________
+TRY CATCH
+
+try{  //si no hay un error se ejecuta
+	const unicorn = non_exist;     //aqui salta el error con non_exist
+	console.log(unicorn);
+} catch(error){   //si hay error se ejecuta el catch
+    	console.log('error', error)
+}
+finally{  // haiga o no error se ejecuta el finally
+    console.log('fin')
+}
+
+ EJEMPLO TRY CATCH
+
+function askForDirection(){
+    var direction = prompt('LEFT O RIGTH');
+    if (direction.toLocaleLowerCase()=='left') return 'L'
+    if (direction.toLocaleLowerCase()=='rigth') return 'R'
+    if (direction==''){
+        throw new Error('You didnt submit an answer')
+    }
+    else {
+        throw new Error('Non a valid direcction:' + direction)
+    }
+}
+
+function play() {
+    if(askForDirection()=='L' ){
+        alert('found treasure')
+
+    }else {alert('Found a black hole')}
+}
+
+try{
+play()
+}
+
+catch(error){
+    alert('ERROOOOOOR'+ error.message)
+}
+
+_________________
+SI PONEMOS ASYNC DELANTE DE UNA FUNCION, ESTO DEVUELVE UNA PROMESA
+
+async function cumplir() {
+    return '23 euros'
+}
+async function fallar(){
+    throw Error('errooooor')
+}
+
+THEN PARA OBTENER EL VALOR DE UNA PROMESA NO ESPERA A QUE ESTE DESCIFRADA LA PROMESA PARA CONTINUAR CON EL CIDGO,
+EN CAMBIO AWAIT SI QUE ESPERA A OBTENER EL VALOR DE LA PROMESA PARA CPONTINUAR CON EL CODIGO
+
+const datasetUrl="http://api.open-notify.org/astros.json"
+THEN
+        fetch(datasetUrl)
+            .then(response => response.json())
+            .then(data=>{
+                console.log('fetch con then'); //3
+                console.log(data)  //4
+            })
+
+            console.log('after promises');  //1
+            console.log('this is the end');  //2
+ASYNC AWAIT
+
+
+            (async()=> {
+                const response = await fetch(datasetUrl);
+                console.log('after await');  //1
+                console.log(await response.json());//2
+                console.log('after await 2'); //3
+
+            })()
+_________________
+ (async () => {
+                try {
+                    console.log('sii')
+                    const result = await Promise.race([
+                       rejectAfterTimeout(2000)
+                    ])
+
+                }catch(error){
+                    console.error(error)
+                 }
+             })()
+
+_______________________________________
+TESTING (PRUEBAS UNITARIAS) CON JEST
+CREAR ARCHIVO playground.spec.js
+
+TOBE MIRA SI ES EL MISMO OBJETO
+EQUAL MIRA SI SON LOS MISMOS VALORES DEL OBJETO
+PARA PROBAR UNA FUNCION HAY QUe ESPORTARLA Y LUEGO IMPORTARLA EN EL playground.spec.js (documento de teses)
+
+test('should just work', ()=>{       //SE PUEDE ESCRIBIR CON 'TEST' O CON 'IT'
+    expect(2<3).toBe(true) 
+})
+SE PRUEBA CON NPM TEST
+SI PONEMOS ftest SOLO SE LANZARA ESE TEST
+SI PONEMOS xtest no se lanzara ese test
+test('deberia retornar true por numero par', ()=> {  
+    expect(isEven(8)).toBe(true)
+
+CON DESCRIBE PONEMOS TODOS LOS TESES DENTRO DEL BLOQUE DESCRIBE DE UNA FUNCION
+
+describe('isEven', ()=> {
+        test('deberia retornar true por numero par', ()=> {
+        expect(isEven(8)).toBe(true)
+    })
+
+        test('should return false for an odd number', ()=> {  //IMPAR
+        expect(isEven(7)).toBeFalsy();
+    })
+})
+
+EJEMPLOS
+
+escribe('map', ()=> {
+    let a 
+    beforeEach(()=> {
+        a = [1,2,3]
+    })
+    it('should return an array with the same length', ()=>{
+        expect(a.map(()=>{}).length).toBe(a.length)
+    })
+    
+    it('should return an array with the values doubled', ()=> {
+        
+        expect(a.map(n=>n*2)).toEqual([2,4,6])
+    })
+
+    it('Should invoke the callback fundction as many times as the array`s length',()=> {
+        const spy = jest.fn()  //Creamos una funcion que se invoca
+        a.map(spy) // recorremos el array y en cada iteracion llama a la funcion
+        expect(spy).toBeCalledTimes(a.length)  // se espera que el numero de veces que se llama a la funcion sea igual al largo del array
+    })
+})
+
+describe('random number', ()=> {
+    let number 
+    beforeEach(()=> {   //CON BEFORE EACH LE DAMOS UN VALOR A LA VARIABLE QUE AUN QUE SE MODIFIQUE EN UN TEST EN LOS DEMAS TENDRA ESTE VALOR AL INICIAR EL TEST
+        number = throwDice()
+    })
+    it('should not return null', ()=> {
+        expect(number).not.toBeNull
+    }) 
+    it('should return a number greater than zero', ()=> {
+        expect(number).toBeGreaterThan(0)
+    })
+    it('should return a number less or equal than six', ()=> {
+        expect(number).toBeLessThanOrEqual(6)
+    })
+
+    it('should return a number less or equal than six', ()=> {
+        expect(number).myFunction(number)
+    })
+    it('should return true if a number is integer', ()=> {
+        expect(number).isAInteger(number)
+    })
+    it('should return true if a number is integer', ()=> {
+        expect(Number.isInteger(number)).toBe(true)
+    })
+
+
+})      
+
+CUSTOM MATCHER
+
+
+_______________________________________
+CSS
+.card {
+  flex: 1 1 0 
+}
+.card:nth-child(1){
+  flex: 3 1 0
+}
+
+________________________________________
+REACT
+
+DESESTRURACION
+
+const ExampleProps = (props) => {
+  const {hero, isNobelWinner, rating, title} = props
+  return (
+    <>
+      {title}
+      <p>{hero.name}</p>
+      <p>Rating {rating}</p>
+      <p>Superpower: {hero.superPower.join('-')}</p>
+      <p>{isNobelWinner ? 'Has won the nobel price' : ''}</p>
+    </>
+  );
+};
+
+  const {mascota: { bambi }} = props
+  console.log(bambi);
+
+DE ESTA MANERA QUITAMOS LA PALABRA PROPS
+
+const ExampleProps = ({hero, isNobelWinner, rating, title}) => {
+  return (
+    <>
+      {title}
+      <p>{hero.name}</p>
+      <p>Rating {rating}</p>
+      <p>Superpower: {hero.superPower.join('-')}</p>
+      <p>{isNobelWinner ? 'Has won the nobel price' : ''}</p>
+    </>
+  );
+};
+
+STYLE
+const Hello = ({ name }) => {
+  return <h2 style={{ color: 'red', fontSize:'35px' }}>Hello {name}</h2>;
+};
+
+EXPORT COMPONENT
+export const Person = (props) => {
+  return <h1>Soy un ser humano</h1>;
+};
+// import { Person } from "./components/Person";
+
+
+O DE ESTA MANERA
+const Person = (props) => {
+  return <h1>Soy un ser humano</h1>;
+};
+export default Person;
+//import  Person  from "./components/Person";
+__________________
+CHILDREN
+ <Person name="Lola Mento" age="22"> I´m an Open Arms Volunter </Person>
+export const Person = ({ name, age, children }) => {
+  return (
+    <>
+      <p>
+        I´m a person and my name is {name} and my age is {age}
+      </p>
+      <p>{children && "Some extra info about me: " + children}</p>
+    </>) ;};
+____________
+const Movies = (props) => {
+  return <ul>{props.datafromserver.Search.map((item) => <li>{item.Title}</li>)}</ul>
+};
+__________________
+const Movies = (props) => {
+  return (
+    <>
+      {props.datafromserver.Search.map((item) => (
+        <Movie movie={item} />
+      ))}
+    </>
+  );
+};
+
+const Movie = (props) => {
+  const { imdbID, Title, Type, Year } = props.movie;
+  return (
+    <div key={imdbID}>
+      <p>{Title}</p>
+      <p>{Type}</p>
+      <p>{Year}</p>
+      <br />
+    </div>
+  );
+};
+
+_________________________
+
+  const [state, setState] = useState({ todos: [], newTodo: '' });
+
+  const inputChangeHandler = (event) => {
+    setState({ ...state, newTodo: event.target.value });
+  };
+
+  const addTodoHandler = () => {
+    setState({ todos: state.todos.concat(state.newTodo), newTodo: '' });
+  };
+
+_______________________________
+ <SearchForm movie={(data) => setMovie(data)} />
+ <Results movie={movie} />
+
+props.movie(data)
+_________________________________________
+
+HOOK QUE TE DICE SI LA PANTALLA ES GRANDE O PEQUEÑA , CADA VEZ QUE AGRANDAS LA VENTANA
+
+import { useState, useEffect } from "react";
+export const useScreen = () => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const checkResize = () => {
+    setIsSmallScreen(window.innerWidth < 768); //PONDRA TRUE O FALSE
+  };
+  useEffect(() => {
+    checkResize();
+    window.addEventListener("resize", checkResize);
+  }, []);
+
+  return isSmallScreen ? "small" : "large";
+};
+
+
+ANGULAR
+<label>Enter a country</label> <input [(ngModel)]="countryName" />
+[(ngModel)] platanos en una caja para acordarnso como va los corchetes y parentesis
+
+
+   async info() {
+    try {
+      this.result = await this.webService.authorize(this.number);
+      console.log(this.result);
+    } catch (error) {
+      this.result= error
+    }
+  }
+
+  info() {
+    this.webService.authorize(this.number).then((data) => {
+      this.result = data + ' congratulations'},  (data)=> this.result = data + ' sorry'
+    );
+  }
+}
+
+PETICION CON SUBSCRIBE
+en appmodule
+import { HttpClientModule } from '@angular/common/http';
+imports: [BrowserModule, FormsModule, HttpClientModule],
+
+
+//SERVICE
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class RESTCountriesService {
+  BASEURI = 'https://restcountries.com/v3.1';
+  constructor(private http: HttpClient) {}
+
+  getCountry(countryName: string): Observable<any> {
+    return this.http.get(`${this.BASEURI}/name/${countryName}`);
+  }
+}
+//LLAMADA AL SERVICIO
+showCapital() {
+    this.countriesService
+      .getCountry(this.countryName)
+      .subscribe((data: any[]) => (this.capital = data[0].capital));
+  }
+
+//SE PUEDE PONER UNA REFERENCIA AL INPUT Y ASI LE PASAMOS EL VALOR QUE ESCRIBES A LA FUNCION:
+<label>Enter a country</label><br />
+<input #country />  //referencia country
+<button (click)="showCapital(country.value)">Find the capital</button>
+<p>{{ capital }}</p>
+
+//DENTRO DE UN SUBSCRIBE PUEDESHACER UN MAP, FILTER... PARA ESO PONES UN PIPE Y DENTRO EL MAP. HAY QUE IMPORTAR EL MAP
+import { map } from 'rxjs/operators';
+ showCapital(countryName: string) {
+    this.countriesService
+      .getCountry(countryName)
+      .pipe(map((data) => data[0].capital))
+      .subscribe((capital) => (this.capital = capital));
+  }
+
+TAMBIEN PUEDES HACER UNA VARIABLE OBSERVABLE Y ASI NO USAMOS EL SUBSCRIBE
+
+import { Component, OnInit } from '@angular/core';import { Observable, EMPTY } from 'rxjs';import { map } from 'rxjs/operators';import { RESTCountriesService } from '../restcountries.service';
+
+@Component({...})
+export class CountryComponent implements OnInit {
+  capital$: Observable<string> = EMPTY;
+  constructor(private countriesService: RESTCountriesService) {}
+  showCapital(countryName: string) {
+    this.capital$ = this.countriesService
+      .getCountry(countryName)
+      .pipe(map((data) => data[0].capital));
+  }
+}
+<p>{{ capital$ | async }}</p>
+
+_______________________________________________________
+
+
+PIPE
+{{hoy | date:"dd/MM/yyyy" | uppercase}}
+<pre>{objeto | json}</pre> con las etiquetas pre sale el objeto mas estructurado
+_______________________________________________________
+
+TESTING ANGULAR
+
+NPM RUN TEST:WATCH  //LANZO TESTS
+UNA VEZ LANSADO SI TENGO MAS DE UN ARCHIVO SPEC.TS, PUEDO PULSAR W Y LUEGO P, ENTOCES PUEDO PNER UNA PALABRA QUE RECONOZCA ESE ARCHIVO DE TESTS ASI SOLO SE LANZARAN LOS TESTS DE ESE ARCHIVO.
+POR EJEMPLO: NPM RUN TEST:WATCH /W/ P / father-son
+
+
+
+
+
+
+

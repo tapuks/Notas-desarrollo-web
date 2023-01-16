@@ -1,0 +1,182 @@
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { BookService } from "../../../../src/app/services/book.service";
+import { CartComponent } from "./cart.component"
+import {HttpClientTestingModule} from '@angular/common/http/testing'
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from "@angular/core";
+
+LANZAR SOLO ESE COMPONENTE =>  npm run test nombre.component
+LANZAR SOLO EL COMPONENTE Y SE PASEN LOS TEST CUANDO GUARDAS  => npm run test:watch nombre componente
+COVERAGE DE ESE COMPONENTE =>  npm run test:coverage nombre.component    => vamos a la carpeta coverage y abres el index.html
+
+describe('cart component', ()=> {
+
+    let component: CartComponent; //declaramos component y le decimos el tipo que es
+    let fixture: ComponentFixture<CartComponent>  //declaramos fixture y le decimos el tipo que es
+
+    beforeEach( ()=> { // primer beforeEach donde hacemos las importaciones de TestBed y demas...
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientTestingModule // para hacer peticiones de testing
+            ],
+            declarations:[
+                CartComponent // componentes
+            ],
+            providers: [
+                BookService  // servicios
+            ],
+            schemas: [  // se importan estas cosas para solucionar algun error
+                CUSTOM_ELEMENTS_SCHEMA,
+                NO_ERRORS_SCHEMA
+            ]
+        }).compileComponents()  // esto se poone para que los componentes puedan compilarse correctamente
+    } )
+
+    beforeEach( ()=> { // segundo beforeeach donde instanciamos el fixture, el componente...
+        fixture = TestBed.createComponent(CartComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    test('El componente se creo correctamente', ()=> {
+        expect(component).toBeTruthy();
+    })
+})
+
+------------------
+EJEMPLOS
+
+
+describe('NewCommercialActionsComponent', () => {
+  let component: NewCommercialActionsComponent;
+  let fixture: ComponentFixture<NewCommercialActionsComponent>;
+  let commercialActionsApiService: CommercialActionsApiService;
+  let newCommercialService: NewCommercialActionsService;
+  let userService: UserService;
+  let router: Router;  ---------------PARA LAS RUTAS
+  let location: Location;---------------PARA LAS RUTAS
+  const componentAsAny = component as any;
+  window.appConfig = ENVLOCAL;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        SharedModule,  OBLIGATORIO IMPORTAR
+        AuthModule.forRoot({}), OBLIGATORIO IMPORTAR
+        HttpClientTestingModule, OBLIGATORIO IMPORTAR
+        BrowserAnimationsModule,
+        NoopAnimationsModule,
+        RouterTestingModule.withRoutes([{ path: 'edit-commercial-action', component: NewCommercialActionsComponent }]),   ---------------PARA LAS RUTAS
+        TranslateModule.forRoot() OBLIGATORIO IMPORTAR
+      ],
+      declarations: [NewCommercialActionsComponent],
+      providers: [OidcSecurityService, CommercialActionsApiService, NewCommercialActionsService, SidebarService]
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NewCommercialActionsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    commercialActionsApiService = fixture.debugElement.injector.get(CommercialActionsApiService);
+    newCommercialService = fixture.debugElement.injector.get(NewCommercialActionsService);
+    userService = fixture.debugElement.injector.get(UserService);
+    router = TestBed.get(Router);---------------PARA LAS RUTAS
+    location = TestBed.get(Location);---------------PARA LAS RUTAS
+  });
+
+
+  it('getStateTooltip', () => {
+    const mockCommercialAction = {
+      state: 'RECHAZADO'
+    };
+	ESPIA PARA HACER QUE LLAME A newCommercialService.getCommercialAction.
+    const spy = jest.spyOn(newCommercialService, 'getCommercialAction').mockImplementation(() => mockCommercialAction);
+
+    const result = component.getStateTooltip();
+    expect(result.length).toBe(4);
+    expect(spy).toHaveBeenCalled();
+  });
+
+ it('get replicatedNuuma call userService.nuuma', () => {    
+	const spy = jest.spyOn(userService, 'replicatedNuuma', 'get').mockImplementation(() => null)    
+	component.replicatedNuuma;    
+	expect(spy).toHaveBeenCalled();  });
+
+
+
+  it('getFlowByRole', () => {
+	ESPIA PARA UN SUBSCRIBE
+    const spy = jest.spyOn(commercialActionsApiService, 'getFlowsByRole').mockReturnValue(
+      of({
+        idTipo: 0,
+        screens: [
+          {
+            id: 1,
+            name: 'string',
+            url: 'string',
+            buttons: [''],
+            visited: true
+          }
+        ]
+      })
+    );
+    component.getFlowByRole('sueprvisorLevel');
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+it('get changeReplicatedProfile call userService.replicatedProfile', async () => {
+    PARA CAMBIAR DE RUTA
+    await router.navigate(['/home'])
+
+
+  it('get replicatedNuuma call userService.replicatedNuuma', () => {
+	//si la funcion es un get: get replicatedProfile(): any {
+   // return this.userService.replicatedProfile;
+ // }
+SE PASA AL ESPIA UN TERCER PARAMETRO, GET
+    const spy = jest.spyOn(userService, 'replicatedNuuma', 'get').mockImplementation(() => null)
+    component.replicatedNuuma;
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('get changeReplicatedProfile call userService.replicatedProfile', () => {
+    const profile: Profile = {
+      id: '1',
+      idProfile: '1',
+      structure: {
+        id: 1,
+        code: '123',
+        description: 'description',
+        level: '25'
+      }
+    }
+    const spy = jest.spyOn(userService, 'replicatedProfile', 'set').mockImplementation(() => null)
+    component.changeReplicatedProfile(profile)
+    expect(spy).toHaveBeenCalled();
+  });
+
+CUANDO LA FUNCION ES UN SET: NO SE PONE COMPONENT.    SE PONE DIRECTAMENTE LA FUNCION = VALOR
+responseMessages.service = 'service';
+
+
+OTRO SUBSCRIBE
+ it('getChannels', () => {
+    const data: KeysModelCollection= {
+      _embedded: {
+        claveValorDtoList: [
+          { selected: false, channelId: 1, channelDescription: 'name', subChannelId: 2, subChannelDescription: '', keyDescription: '', keyTipe: null }
+        ]
+      }
+    };
+    const spy = jest.spyOn(userApiService, 'getChannels').mockReturnValue(of(data));
+    component.getChannels();
+    expect(component.channels[0].selected).toBe(false);
+  });
+
+CUANDO HACEMOS EL MOCKRETURNVALUE(OF(DATA)) SUI NOS PONEMOS ENCIMA NOS DICE EL TIPO DE LO QUE NOS DEVUELVE.
+ENTONCES CREAMOS UNA VARIABLE CON ESE NOMBRE Y DE ESE TIPO.
+const data: KeysModelCollection= {} SI NOS PONEMOS ENCIMA DE DATA CON LA AYUDA DEL VCODE, PONDRA FIX Y PODEMOS IMPORTAR SUS PROPIEDADES DEL OBJETO
+
+
+
+
+

@@ -29,6 +29,11 @@ git checkout nueva : cambias a la rama nueva
 $ git remote -v : para mirar el enlace al repositiorio que tienes puesto
 git remote remove nombre-variable :  Eliminar el enlace que tiene tu worskpace hacia tu repo
 
+git stash -> corto los cambios 
+git stash apply -> pego los cambios
+git pull origin master -> traemos todos los cambios de master a la rama.
+git fetch --all -> traigo todas las ramas nuevas
+
 //GITHUB
 
 creas repositorio nuevo en la web
@@ -79,4 +84,12 @@ npm run start
 
 =======
 rm -r -force node_modules
+___________________
+npm install --legacy-peer-deps
+
+______________________
+GIT FETCH --ALL ->  ME TRAIGO TODAS LAS RAMAS NUEVAS AL PROYECTO
+GIT STASH => SE GUARDAN TODOS LOS CAMBIO HECHOS EN ESTA RAMA COMO EN UNA VARIABLE Y LAS PUEDO PEGAR EN OTRA RAMA
+GIT STASH APPLY -> PEGO LOS CAMBIOS GUARDADOS DE LA RAMA QUE LE HECHO EL GIT STASH
+ git commit -m 'feat (customer-data): add test' --no-verify    --> SUBES COMMIT SIN PASAR TESTS
 

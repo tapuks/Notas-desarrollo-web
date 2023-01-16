@@ -147,6 +147,26 @@ HAY A VECES QUE EL HTML NO DEJA PONER LAS PROPIEDADES DE UN OBJETO, ESO ES PORQU
 
 HAY A VECES QUE TIENES DE DECLARAR EL TIPO DE CADA COSA PORQUE SI NO DA ERRROR, ESO ES PORQUE ESTA PUESTO EL MODO ESTRICTO, PARA QUITARLO VAMOS EL DOCUMENTO 
 tsconfig.json y ponemos a false la pripiedad strict
+-----------
+NG CONTENT
+@Component({
+  selector: 'my-app',
+  template: `
+    <h2>Titulo</h2>
+    <ng-content></ng-content>
+//Cuando llamas al componente <my-app><p>Le paso lo qiue quiera que lo muestra al estar el ng-content</p></my-app>
+------------
+RECORRER UN COMPONENTE PASANDOLE UN INPUT
+TS DE APP.COMPONENT numberList=[1,3,5,6,74]
+TS DE APPODD number = 0
+HTML DE APPODD <P>{{number}}</P>
+<app-odd *ngFor="let num of numberList" [number]="num"></app-odd>
+
+AHORRARSE UN ELSE SI LO QUE QUEREMOS DEVOLVER ES TRUE O FALSE
+DEVOLVERA TRUE O DEVOLVERA FALSE
+myFunction(){
+     return !(3>2)  //Devolvera false
+   }
 
 
 
@@ -201,8 +221,22 @@ importamos FormsModule
   	    }
 __________________________________DIRECTIVAS__________________________________________
 <p [ngStyle]="{color:'red', fontSize:'24px'}"> Ponemos estilos.</p>
+<p [ngStyle]="{backgroundColor: getColor()}">siii</p>
+ getColor() {return this.palabra.length>5 ?'green': 'red'}
+
+NG CLASS RECIBE UN OBJETO CLAVE(NOMBRE DE CLASE):VALOR(TRUE O FALSE)  [ngClass]="{pintarojo: 3>2}"
 <p [ngClass]="{semaforo: true, redondo: false}">Mostramos las clases que queramos.</p>
 <div class="personaje" [ngClass]="{vivo: item.status == 'Alive', muerto: item.status =='Dead'}">
+
+<button (click)="onClick('a')" [ngClass]="{alert: alertButton=='a'}">A</button>
+<button (click)="onClick('b')" [ngClass]="{alert: alertButton=='b'}">B</button>
+<button (click)="onClick('c')" [ngClass]="{alert: alertButton=='c'}">C</button>
+//si la ruta es info el ng class coge la clase alert
+<button (click)="onClick('a')" [ngClass]="{alert: router.url=='info'}">A</button>
+<div *ngFor="let item of lista">
+  <p [ngClass]="{azul: item>7}" [ngStyle]="{color: item>7 && 'white'}">{{item}}</p>
+</div>
+
 <p *ngIf="true">Si es true se muestra, si es false no.</p>
 
 <p *ngIf="false; else elseBlock">Si es true se muestra, si es false se muestra el del else</p>
@@ -259,6 +293,16 @@ Tambien puedes hacer que se active una clase con la directiva, usando HostBindin
     this.render.setStyle(this.elem.nativeElement, 'color', 'blue');
     this.isHover = 'hover'  // De esta manera creas en el css una clase .hover y le pones un background o lo que quieras
   }
+
+otro ejemplo
+@Directive({ selector: '[appPulsa]'})
+export class PulsaDirective {
+constructor(private elem: ElementRef, private render: Renderer2) { }
+  isOpen= false;
+  @HostListener('click') onClick(){
+    this.isOpen = !this.isOpen
+    if (this.isOpen){this.render.setStyle(this.elem.nativeElement, 'color', 'red')}
+    else {this.render.setStyle(this.elem.nativeElement, 'color', 'black')}}}
 __________________________________________
 //ternario  
     <button (click)="onClick(tarea)">{{tarea.completa? 'INCOMPLETA' : 'COMPLETA'}}</button>
@@ -266,6 +310,8 @@ __________________________________________
 	<div class="tarea" *ngFor="let tarea of tareas; let indice= index" [ngClass]="{completa:tarea.completa, incompleta:!tarea.completa}>
 
 ____________________NUEVO MODELO______________________________________
+producto.model.ts
+
 export class Producto {
   nombre: string;
   imagen: string;
@@ -288,11 +334,14 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: '**', redirectTo: 'about'}
 ];
-//En app.component.html poner    <router-outlet></router-outlet>
+//En app.component.html poner    <router-outlet></router-outlet>, en la parte del html que lo pongas aparecera el componente de la ruta que tienes.
+Es decir si tienes en el app.component.html un <h1>Este es el titulo</h1> <router-outlet></router-outlet> aparecera el titulo en todas la rutas y luego el componwente de la ruta, si lo pones antes del h1, pues el componente aparecera arriba
 
 PARA IR A UNA RUTA DESDE UN ENLACE, NO PUEDES HACER CON <A HREF=... PORQUE TE RECARGA LA PAGINA.
 SE HACE DE ESTA MANERA.
   <a [routerLink]="['/informacion']">Informacion</a>
+  <a routerLink="/gatos">Gatos</a>
+
 
 CON ROUTERLINACTIVE LE PONEMOS UNA CLASE CSS A ESE LINK. SI TENEMOS UN MENU CON VARIOS ENLACES Y AL QUE ESTE ACTIVA LE PONEMOS UNA CLASE CON UN BACKGROUN RED POR EJEMPLO
 EL ENLACE QUE HAIGAMOS APRETADO ESTARA EN ROJO.
